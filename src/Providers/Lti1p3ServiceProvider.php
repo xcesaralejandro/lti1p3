@@ -1,0 +1,49 @@
+<?php 
+namespace xcesaralejandro\lti1p3\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use xcesaralejandro\lti1p3\Classes\Launch;
+
+class Lti1p3ServiceProvider extends ServiceProvider {
+
+    public function boot(){
+        $this->loadViewsFrom($this->packageBasePath('resources/views'), "lti1p3");
+
+        $this->loadRoutesFrom($this->packageBasePath('routes/web.php'));
+        
+        $this->loadTranslationsFrom($this->packageBasePath('resources/lang'), 'lti1p3');
+
+        $this->publishes([
+            $this->packageBasePath('resources/views') => resource_path("/views/vendor/xcesaralejandro/lti1p3")
+        ], 'xcesaralejandro-lti1p3-views');
+        
+        $this->publishes([
+            $this->packageBasePath('config/lti1p3.php') => base_path("config/lti1p3.php")
+        ], 'xcesaralejandro-lti1p3-config');
+
+        $this->publishes([
+            $this->packageBasePath('database/migrations') => database_path('migrations')
+        ], 'xcesaralejandro-lti1p3-migrations');
+
+        $this->publishes([
+            $this->packageBasePath('public') => public_path()
+        ], 'xcesaralejandro-lti1p3-assets');
+
+        $this->publishes([
+            $this->packageBasePath('resources/lang') => resource_path('lang/vendor/xcesaralejandro/lti1p3')
+        ], 'xcesaralejandro-lti1p3-translations');
+
+    }
+
+    public function register(){
+        $this->app->bind('launch', function(){
+            return new Launch();
+        });
+        $this->mergeConfigFrom($this->packageBasePath('config/lti1p3.php'), "lti1p3");
+        $this->loadMigrationsFrom($this->packageBasePath('database/migrations'));
+    }
+
+    protected function packageBasePath($uri){
+        return __DIR__."/../../$uri";
+    }
+}
