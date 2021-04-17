@@ -25,7 +25,7 @@ class AuthController {
         $remember = $request?->remember;
         $valid_attempt = Auth::attempt($credentials, $remember);
         if($valid_attempt && Auth::user()->isAdmin()){
-            return redirect()->route('lti1p3.platforms');
+            return redirect()->route('lti1p3.platforms.index');
         }else{
             return redirect()->back()->withErrors(['Attemp' => 'failed']);
         }

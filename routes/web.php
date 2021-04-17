@@ -22,5 +22,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web','auth']], function () {
-    Route::get('/platforms', [PlatformsController::class, 'index'])->name('lti1p3.platforms');
+    Route::resource('/platforms', PlatformsController::class, ['as' => 'lti1p3']);
 });

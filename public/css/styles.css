@@ -5,3 +5,16 @@ body{
 .navbar-height-spacing{
     min-height: 70px;
 }
+
+.text-caption{
+    font-size: .8rem;
+    color: gray;
+}
+
+.bubble-enable{
+    color: greenyellow;
+}
+
+.bubble-disable{
+    color: lightgray;
+}

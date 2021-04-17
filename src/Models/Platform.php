@@ -17,7 +17,7 @@ class Platform extends Model
     protected $table = 'platforms';
     protected $fillable = ['issuer_id', 'client_id', 'deployment_id', 'target_link_uri',
     'authorization_url', 'authentication_url', 'json_webkey_url','signature_method',
-    'name', 'version', 'product_family_code', 'validation_context', 'guid'];
+    'name', 'version', 'product_family_code', 'validation_context', 'guid', 'record_name'];
 
     public function users() : HasMany {
         return $this->hasMany(User::class, 'platform_id', 'id');
@@ -41,4 +41,7 @@ class Platform extends Model
         return $keys;
     }
 
+    public function wasLaunched() : bool {
+        return !empty($this->guid);
+    }
 }
