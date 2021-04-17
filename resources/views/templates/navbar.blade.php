@@ -8,12 +8,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
-            {{trans('lti1p3::strings.navbar_accounts')}}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{{route('lti1p3.auth.logout')}}">
             {{trans('lti1p3::strings.navbar_logout')}}
           </a>
         </li>

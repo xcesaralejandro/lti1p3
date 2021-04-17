@@ -27,7 +27,12 @@ class AuthController {
         if($valid_attempt && Auth::user()->isAdmin()){
             return redirect()->route('lti1p3.platforms');
         }else{
-            return redirect()->back();
+            return redirect()->back()->withErrors(['Attemp' => 'failed']);
         }
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
     }
 }

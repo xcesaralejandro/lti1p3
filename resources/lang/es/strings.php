@@ -9,7 +9,5 @@ return [
     'login_button' => 'Entrar',
     'login_attemp_failed' => 'Datos incorrectos.',
     'navbar_platforms' => 'Plataformas',
-    'navbar_accounts' => 'Cuentas',
     'navbar_logout' => 'Cerrar Sesión',
-
 ];
