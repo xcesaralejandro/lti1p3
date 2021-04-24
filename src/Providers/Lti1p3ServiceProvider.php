@@ -2,6 +2,7 @@
 namespace xcesaralejandro\lti1p3\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use xcesaralejandro\lti1p3\Classes\JWT;
 use xcesaralejandro\lti1p3\Classes\Launch;
 
 class Lti1p3ServiceProvider extends ServiceProvider {
@@ -10,7 +11,9 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         $this->loadViewsFrom($this->packageBasePath('resources/views'), "lti1p3");
 
         $this->loadRoutesFrom($this->packageBasePath('routes/web.php'));
-        
+
+        $this->loadRoutesFrom($this->packageBasePath('routes/api.php'));
+
         $this->loadTranslationsFrom($this->packageBasePath('resources/lang'), 'lti1p3');
 
         $this->publishes([
@@ -39,6 +42,11 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         $this->app->bind('launch', function(){
             return new Launch();
         });
+
+        $this->app->bind('jwt', function(){
+            return new JWT();
+        });
+        
         $this->mergeConfigFrom($this->packageBasePath('config/lti1p3.php'), "lti1p3");
         $this->loadMigrationsFrom($this->packageBasePath('database/migrations'));
     }

@@ -9,8 +9,8 @@
     ],
     "require": {
         "php": "^8.0",
-        "firebase/php-jwt": "^5.2",
-        "guzzlehttp/guzzle": "^7.0.1"
+        "guzzlehttp/guzzle": "^7.0.1",
+        "firebase/php-jwt": "^5.2"
     },
     "autoload": {
         "psr-4" : {
