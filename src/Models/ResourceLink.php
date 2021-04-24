@@ -12,6 +12,8 @@ class ResourceLink extends Model
 {
     use HasFactory;
 
+    protected $table = 'resource_links';
+    
     protected $fillable = ['context_id', 'lti_id', 'description', 'title', 'validation_context'];
 
     public function context() : BelongsTo {

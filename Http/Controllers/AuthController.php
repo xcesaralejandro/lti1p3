@@ -10,7 +10,7 @@ class AuthController {
 
     public function index(){
         if(Auth::check()){
-            return redirect()->route('lti1p3.platforms');
+            return redirect()->route('lti1p3.platforms.index');
         }
         return View('lti1p3::auth.login');
     }

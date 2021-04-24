@@ -13,7 +13,7 @@ class CreateResourceLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('resources_link', function (Blueprint $table) {
+        Schema::create('resource_links', function (Blueprint $table) {
             $table->id();
             $table->foreignId('context_id');
             $table->string('lti_id')->index();

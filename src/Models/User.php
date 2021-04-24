@@ -14,6 +14,8 @@ class User extends Authenticatable
 {
     // use HasFactory, Notifiable, LtiRolesManager;
 
+    protected $table = 'users';
+
     protected $fillable = ['platform_id','lti_id', 'password', 'name', 'given_name', 'family_name',
     'email', 'picture', 'roles', 'person_sourceid', 'creation_method', 'app_role'];
     protected $hidden = ['password', 'remember_token'];
