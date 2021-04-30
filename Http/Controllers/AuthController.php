@@ -24,7 +24,7 @@ class AuthController {
         $credentials = $request->only(['email', 'password']);
         $remember = $request?->remember;
         $valid_attempt = Auth::attempt($credentials, $remember);
-        if($valid_attempt && Auth::user()->isAdmin()){
+        if($valid_attempt && Auth::user()->isToolAdmin()){
             return redirect()->route('lti1p3.platforms.index');
         }else{
             return redirect()->back()->withErrors(['Attemp' => 'failed']);

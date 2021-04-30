@@ -7,6 +7,7 @@ use xcesaralejandro\lti1p3\Facades\JWT;
 use xcesaralejandro\lti1p3\Facades\Launch;
 use xcesaralejandro\lti1p3\Facades\Lti;
 use xcesaralejandro\lti1p3\Http\Requests\LaunchRequest;
+use xcesaralejandro\lti1p3\Models\User;
 
 class Lti1p3Controller {
 

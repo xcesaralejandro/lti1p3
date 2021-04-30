@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Traits\LtiRolesManager;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use xcesaralejandro\lti1p3\Traits\LtiRolesManager;
 
 class User extends Authenticatable
 {
-    // use HasFactory, Notifiable, LtiRolesManager;
+    use LtiRolesManager;
 
     protected $table = 'users';
 
@@ -24,7 +24,7 @@ class User extends Authenticatable
         return $this->belongsTo(Platform::class, 'platform_id');
     }
 
-    public function isAdmin() : bool {
+    public function isToolAdmin() : bool {
         return $this->app_role == 'ADMIN' && $this->has('email') && $this->has('password');
     }
 
