@@ -34,7 +34,8 @@ class Platform extends Model
 
     public function getPublicJwk() : array {
         $client = new Client();
-        $response = $client->get($this->json_webkey_url);
+        $verify_https = config('lti1p3.VERIFY_HTTPS_CERTIFICATE');
+        $response = $client->get($this->json_webkey_url, ['verify' => $verify_https]);
         $public_jwks = json_decode($response->getBody()->getContents(), true);
         $keys = JWK::parseKeySet($public_jwks);
         Log::debug('[Platform::class] Getting the public Jwk of the platform',

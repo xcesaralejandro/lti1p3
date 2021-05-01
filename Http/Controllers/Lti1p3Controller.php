@@ -11,18 +11,16 @@ use xcesaralejandro\lti1p3\Models\User;
 
 class Lti1p3Controller {
 
-    public function onLaunch(Instance $instance) : Mixed 
-    {
+    public function onLaunch(Instance $instance) : mixed {
         return View('lti1p3::welcome')->with(['instance' => $instance]);
     }
 
-    public function onError() : Mixed
-    {
+    public function onError() : mixed {
         abort(401);
     }
 
-    public function launchConnection(LaunchRequest $request){
-        if(Launch::isLoginHint($request)){
+    public function launchConnection(LaunchRequest $request) {
+        if(Launch::isLoginHint($request)) {
             return Launch::attemptLogin($request);
         }else if(Launch::isValidLogin($request)){
             Lti::init($request->id_token, $request->state);

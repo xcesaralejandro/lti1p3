@@ -23,15 +23,12 @@ class Nonce extends Model
     }
 
 
-    public function platform() : BelongsTo 
-    {
+    public function platform() : BelongsTo {
         return $this->belongsTo(Platform::class, 'platform_id');
     }
 
-    public function assertMatchWith(string $nonce) : Void 
-    {
-        if($nonce != $this->value)
-        {
+    public function assertMatchWith(string $nonce) : Void {
+        if($nonce != $this->value){
             $message = "The nonce does not match the nonce of the lti content";
             throw new \Exception($message);
         }

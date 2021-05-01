@@ -4,9 +4,11 @@
 
 return [
     
+    'VERIFY_HTTPS_CERTIFICATE' => false,
+
     'SIGNATURE_METHOD' => 'RS256',
     
-    'KID' => '', //A random string to identify the key value
+    'KID' => 'default_kid', //A random string to identify the key value
     
     'PRIVATE_KEY' => <<< EOD
     -----BEGIN RSA PRIVATE KEY-----

@@ -20,7 +20,4 @@ class ResourceLink extends Model
         return $this->belongsTo(Context::class, 'context_id');
     }
 
-    public function certConfig() : HasOne {
-        return $this->hasOne(CertConfig::class, 'resource_link_id', 'id');
-    }
 }

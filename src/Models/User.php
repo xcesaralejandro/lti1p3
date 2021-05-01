@@ -28,7 +28,7 @@ class User extends Authenticatable
         return $this->app_role == 'ADMIN' && $this->has('email') && $this->has('password');
     }
 
-    private function has(string $column){
+    private function has(string $column) : bool {
         return !empty($column);
     }
 }

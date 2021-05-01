@@ -12,8 +12,7 @@ class JWT extends firebaseJWT {
 
     public static $allowJkuHeader = false;
 
-    public function buildJWKS(string $private_key, string $signature_method, string $kid) : array
-    {
+    public function buildJWKS(string $private_key, string $signature_method, string $kid) : array {
         $keys['keys'] = array();
         $res = openssl_pkey_get_private($private_key);
         if ($res === false) {
