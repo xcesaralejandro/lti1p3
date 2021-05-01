@@ -12,7 +12,7 @@ return [
     'navbar_list_platforms' => 'Listar plataformas',
     'navbar_logout' => 'Cerrar Sesión',
     'platform_record_name_label' => 'Nombre de la plataforma',
-    'platform_issuer_id_label' => 'Issuer id',
+    'platform_issuer_id_label' => 'Platform id',
     'platform_client_id_label' => 'Client id',
     'platform_deployment_id_label' => 'Deployment id',
     'platform_authorization_url_label' => 'Authorization url',
