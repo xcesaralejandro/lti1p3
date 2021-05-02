@@ -44,6 +44,10 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         $this->publishes([
             $this->packageBasePath('src/Models/publish') => base_path('app/Models')
         ], 'xcesaralejandro-lti1p3-models');
+
+        $this->publishes([
+            $this->packageBasePath('database/seeders') => database_path('seeders')
+        ], 'xcesaralejandro-lti1p3-seeder');
     }
 
     public function register(){

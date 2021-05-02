@@ -1,5 +1,29 @@
 <?php
 
 return [
-    'welcome' => 'Welcome terricolein'
+    'app_name' => 'LTI 1.3 Template',
+    'login_title' => 'Login',
+    'login_email_placeholder' => 'Email',
+    'login_password_placeholder' => 'Password',
+    'login_remember_me' => 'Remember the session',
+    'login_button' => 'sign in',
+    'login_attemp_failed' => 'Bad login',
+    'navbar_add_platform' => 'New platform',
+    'navbar_list_platforms' => 'List platforms',
+    'navbar_logout' => 'logout',
+    'platform_record_name_label' => 'Platform name',
+    'platform_issuer_id_label' => 'Platform id',
+    'platform_client_id_label' => 'Client id',
+    'platform_deployment_id_label' => 'Deployment id',
+    'platform_authorization_url_label' => 'Authorization url',
+    'platform_authentication_url_label' => 'Authentication url',
+    'platform_json_webkey_url_label' => 'Json webkey url',
+    'platform_signature_method_label' => 'Signature method',
+    'platform_new_platform_title' => 'New platform',
+    'platform_not_found' => 'No platforms have been added yet',
+    'platform_add_new_button' => 'ADD PLATFORM',
+    'platform_save_button' => 'SAVE',
+    'platform_create_error' => 'The platform could not be added.',
+    'platform_create_success' => 'The platform was created successfully.',
+    'platform_confirm_delete' => '¿Are you sure you want to remove the platform :name ?',
 ];
