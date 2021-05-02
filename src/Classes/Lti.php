@@ -14,14 +14,12 @@ class Lti {
     private Platform $platform;
 
     function init(string $jwt, string $nonce) : void {
-        Log::debug('[Lti::class] [init] Starting Lti class validations');
         $this->raw_jwt = $jwt;
         $nonce = Nonce::where(['value' => $nonce])->firstOrFail();
         $this->platform = $nonce->platform()->firstOrFail();
         $this->content = $this->getContentFromToken();
         TokenValidator::validOrFail($this->content, $this->platform);
         $nonce->delete();
-        Log::debug('[Lti::class] [init] Lti class was constructed correctly');
     }
 
     public function getPlatform() : Platform {
@@ -41,7 +39,6 @@ class Lti {
         $signature_method = $this->platform->signature_method;
         $raw_content = JWT::decode($this->raw_jwt, $jwk, array($signature_method));
         $content = new Content($raw_content);
-        Log::debug('[Lti::class] Jwt decoded successfully');
         return $content;
     }
 

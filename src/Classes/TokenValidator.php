@@ -16,8 +16,6 @@ class TokenValidator {
         $receivedVersion = $content->getLtiVersion();
         if($receivedVersion != self::Lti1p3){
             $message = "The version of lti specified in the token is not supported.";
-            Log::error('[LtiTokenValidator::class] '.$message,
-            ['receivedVersion' => $receivedVersion]);
             throw new \Exception($message);
         }
     }
@@ -26,20 +24,14 @@ class TokenValidator {
         $hasErrors = false;
         if($platform->issuer_id != $content->getIss()){
             $message = "The platform issuer does not match the token issuer";
-            Log::error('[LtiTokenValidator::class] '.$message,
-            ['platform' => $platform->issuer_id, 'content'=>$content->getIss()]);
             $hasErrors = true;
         }
         if($platform->client_id != $content->getAud()){
             $message = "The platform client_id does not match the token audience";
-            Log::error('[LtiTokenValidator::class] '.$message,
-            ['platform' => $platform->client_id, 'content'=>$content->getAud()]);
             $hasErrors = true;
         }
         if($platform->deployment_id != $content->getDeploymentId()){
             $message = "The platform deployment_id does not match the token deployment_id";
-            Log::error('[LtiTokenValidator::class] '.$message,
-            ['platform' => $platform->deployment_id, 'content'=>$content->getDeploymentId()]);
             $hasErrors = true;
         }
         if($hasErrors){

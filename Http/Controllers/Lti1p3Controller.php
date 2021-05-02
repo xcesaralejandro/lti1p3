@@ -37,8 +37,6 @@ class Lti1p3Controller {
             $data->user = $user;
             return $this->onLaunch($data);
         }else{
-            Log::warning("[Lti1p3Controller] [launchConnection] Launch receive invalid params",
-            $request->all());
             return $this->onError();
         }
     }

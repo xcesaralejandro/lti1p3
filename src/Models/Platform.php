@@ -39,8 +39,6 @@ class Platform extends Model
         $response = $client->get($this->json_webkey_url, ['verify' => $verify_https]);
         $public_jwks = json_decode($response->getBody()->getContents(), true);
         $keys = JWK::parseKeySet($public_jwks);
-        Log::debug('[Platform::class] Getting the public Jwk of the platform',
-        ['url' => $this->json_webkey_url]);
         return $keys;
     }
 

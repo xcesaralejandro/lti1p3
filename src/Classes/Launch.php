@@ -2,7 +2,6 @@
 namespace xcesaralejandro\lti1p3\Classes;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Log;
 use xcesaralejandro\lti1p3\Http\Requests\LaunchRequest;
 use App\Models\Context;
 use xcesaralejandro\lti1p3\Models\Nonce;
@@ -13,14 +12,10 @@ use App\Models\User;
 class Launch {
 
         public function isLoginHint(LaunchRequest $request) : bool {
-            Log::debug("[Launch] [isLoginHint] Check login hint",
-                $request->only(['iss', 'client_id']));
             return isset($request->login_hint);
         }
     
         public function isValidLogin(LaunchRequest $request) : bool {
-            Log::debug("[Launch] [isValidLogin] Cheking login",
-                $request->only(['id_token', 'state']));
             return isset($request->id_token);
         }
 
@@ -29,8 +24,6 @@ class Launch {
                 'client_id' => $request->client_id])->firstOrFail();
             $login_request = ['url' => $platform->authentication_url,
                 'params' => $this->loginParams($platform, $request)];
-            Log::debug("[Launch] [attemptLogin] Attempt login for platform id: {$platform->id}", 
-                $login_request);
             return View('lti1p3::helpers.autoSubmitForm', $login_request);
         }
 
@@ -52,7 +45,6 @@ class Launch {
         }
 
         public function SyncPlatform(Content $content, Platform $platform) : Platform {
-            Log::debug('[Launch] [updatePlatform] Starting updating Platform');
             $platform->guid = $content->getPlatform()?->guid;
             $platform->name = $content->getPlatform()?->name;
             $platform->version = $content->getPlatform()?->version;
@@ -60,12 +52,10 @@ class Launch {
             $platform->validation_context = $content->optionalPlatformAttribute('validation_context');
             $platform->target_link_uri = $content->optionalPlatformAttribute('target_link_uri');
             $platform->update();
-            Log::debug('[Launch] [updatePlatform] Platform has been updated successfully');
             return $platform;
         }
 
         public function SyncUser(Content $content, int $platform_id) : User {
-            Log::debug('[Launch] [updateOrCreateUser] Starting updating or creating User');
             $fields = [
                 'name' => $content->getUserName(),
                 'given_name' => $content->getUserGivenName(),
@@ -77,12 +67,10 @@ class Launch {
             ];
             $conditions = ['lti_id' => $content->getUserId(), 'platform_id' => $platform_id];
             $user = User::updateOrCreate($conditions, $fields);
-            Log::debug('[Launch] [updateOrCreateUser] User has been updated or created successfully');
             return $user;
         }
 
         public function SyncContext(Content $content, int $platform_id) : Context {
-            Log::debug('[Launch] [updateOrCreateContext] Starting updating or creating Context');
             $fields = [
                 'label' => $content->getContext()?->label,
                 'title' => $content->getContext()?->title,
@@ -90,12 +78,10 @@ class Launch {
             ];
             $conditions = ['lti_id' => $content->getClaims()->context->id,'platform_id' => $platform_id];
             $context = Context::updateOrCreate($conditions, $fields);
-            Log::debug('[Launch] [updateOrCreateContext] Context has been updated or created successfully');
             return $context;
         }
     
         public function SyncResourceLink(Content $content, Context $context) : ResourceLink {
-            Log::debug('[Launc] [SyncResourceLink] Starting updating or creating ResourceLink');
             $fields = [
                 'description' => $content->optionalResourceLinkAttribute('description'),
                 'title' => $content->getResourceLink()?->title,
@@ -104,7 +90,6 @@ class Launch {
             $lti_id = $content->getResourceLink()?->id;
             $conditions = ['lti_id' => $lti_id, 'context_id' => $context->id];
             $resourceLink = ResourceLink::updateOrCreate($conditions, $fields);
-            Log::debug('[Launch] [SyncResourceLink] ResourceLink has been updated or created successfully');
             return $resourceLink;
         }
     }
