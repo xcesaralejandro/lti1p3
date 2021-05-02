@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Log;
 use xcesaralejandro\lti1p3\Classes\Content;
 use xcesaralejandro\lti1p3\Facades\JWT;
 use xcesaralejandro\lti1p3\Models\Nonce;
-use xcesaralejandro\lti1p3\Models\Platform;
+use App\Models\Platform;
 
 class Lti {
 

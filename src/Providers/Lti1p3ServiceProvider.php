@@ -37,6 +37,13 @@ class Lti1p3ServiceProvider extends ServiceProvider {
             $this->packageBasePath('resources/lang') => resource_path('lang/vendor/xcesaralejandro/lti1p3')
         ], 'xcesaralejandro-lti1p3-translations');
 
+        $this->publishes([
+            $this->packageBasePath('Http/Controllers/publish') => base_path('app/Http/Controllers')
+        ], 'xcesaralejandro-lti1p3-controller');
+
+        $this->publishes([
+            $this->packageBasePath('src/Models/publish') => base_path('app/Models')
+        ], 'xcesaralejandro-lti1p3-models');
     }
 
     public function register(){

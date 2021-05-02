@@ -1,7 +1,7 @@
 <?php
 namespace xcesaralejandro\lti1p3\Classes;
 use Illuminate\Support\Facades\Log;
-use xcesaralejandro\lti1p3\Models\Platform;
+use App\Models\Platform;
 
 class TokenValidator {
     const Lti1p3 = '1.3.0';

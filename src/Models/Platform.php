@@ -2,10 +2,11 @@
 
 namespace xcesaralejandro\lti1p3\Models;
 
+use App\Models\Context;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\hasMany;
-use App\Models\Nonce;
 use GuzzleHttp\Client;
 use \Firebase\JWT\JWK;
 use Illuminate\Support\Facades\Log;

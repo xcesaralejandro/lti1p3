@@ -1,9 +1,9 @@
 <?php
 namespace xcesaralejandro\lti1p3\DataStructure;
-use xcesaralejandro\lti1p3\Models\Context;
-use xcesaralejandro\lti1p3\Models\Platform;
-use xcesaralejandro\lti1p3\Models\ResourceLink;
-use xcesaralejandro\lti1p3\Models\User;
+use App\Models\Context;
+use App\Models\Platform;
+use App\Models\ResourceLink;
+use App\Models\User;
 
 class Instance 
 {

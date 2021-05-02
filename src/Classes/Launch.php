@@ -1,14 +1,14 @@
 <?php
-    namespace xcesaralejandro\lti1p3\Classes;
+namespace xcesaralejandro\lti1p3\Classes;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 use xcesaralejandro\lti1p3\Http\Requests\LaunchRequest;
-use xcesaralejandro\lti1p3\Models\Context;
+use App\Models\Context;
 use xcesaralejandro\lti1p3\Models\Nonce;
-use xcesaralejandro\lti1p3\Models\Platform;
-use xcesaralejandro\lti1p3\Models\ResourceLink;
-use xcesaralejandro\lti1p3\Models\User;
+use App\Models\Platform;
+use App\Models\ResourceLink;
+use App\Models\User;
 
 class Launch {
 
