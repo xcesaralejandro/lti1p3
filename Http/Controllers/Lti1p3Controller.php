@@ -1,6 +1,7 @@
 <?php 
 namespace xcesaralejandro\lti1p3\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use xcesaralejandro\lti1p3\DataStructure\Instance;
 use xcesaralejandro\lti1p3\Facades\JWT;
@@ -35,6 +36,9 @@ class Lti1p3Controller {
             $data->context = $context;
             $data->resourceLink = $resourceLink;
             $data->user = $user;
+            if(config('lti1p3.ENABLE_AUTH')){
+                Auth::login($user);
+            }
             return $this->onLaunch($data);
         }else{
             return $this->onError();

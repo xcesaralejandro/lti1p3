@@ -3,12 +3,14 @@
 // https://travistidwell.com/jsencrypt/demo/
 
 return [
+
+    'ENABLE_AUTH' => true,
     
     'VERIFY_HTTPS_CERTIFICATE' => false,
 
     'SIGNATURE_METHOD' => 'RS256',
     
-    'KID' => 'default_kid', //A random string to identify the key value
+    'KID' => 'default_kid', 
     
     'PRIVATE_KEY' => <<< EOD
     -----BEGIN RSA PRIVATE KEY-----
