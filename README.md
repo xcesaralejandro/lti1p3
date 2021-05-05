@@ -74,3 +74,6 @@ https://YOUR_APP_LARAVEL_DOMAIN/api/jwks
 All the urls (except jwks) required on the respective platform are:
 
 https://YOUR_APP_LARAVEL_DOMAIN/lti/connect
+
+
+# See the wiki to know how to use some things
