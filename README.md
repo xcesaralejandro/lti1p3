@@ -29,6 +29,9 @@ laravel >= 8.0
 
 After publishing our provider, we will have a file called lti1p3.php inside the config folder, there we will have to complete the configuration. Next I will leave the keys that are REQUIRED, the rest should be by default unless you understand that you are changing.
 
+##### ENABLE_AUTH
+If true, the user will be authenticate and you can use the facade Auth::user()
+
 #####  VERIFY_HTTPS_CERTIFICATE
 If true, will not allow self-signed https certificates.  
 
