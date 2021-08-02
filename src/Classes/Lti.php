@@ -6,6 +6,8 @@ use xcesaralejandro\lti1p3\Classes\Content;
 use xcesaralejandro\lti1p3\Facades\JWT;
 use xcesaralejandro\lti1p3\Models\Nonce;
 use App\Models\Platform;
+use xcesaralejandro\lti1p3\Classes\Services\AgsService;
+use xcesaralejandro\lti1p3\Classes\Services\NrpsService;
 
 class Lti {
 

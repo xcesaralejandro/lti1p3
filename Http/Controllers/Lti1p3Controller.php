@@ -7,12 +7,15 @@ use xcesaralejandro\lti1p3\DataStructure\Instance;
 use xcesaralejandro\lti1p3\Facades\JWT;
 use xcesaralejandro\lti1p3\Facades\Launch;
 use xcesaralejandro\lti1p3\Facades\Lti;
+use xcesaralejandro\lti1p3\Facades\Nrps;
 use xcesaralejandro\lti1p3\Http\Requests\LaunchRequest;
 use xcesaralejandro\lti1p3\Models\User;
 
 class Lti1p3Controller {
 
     public function onLaunch(Instance $instance) : mixed {
+        Nrps::init($instance);
+        return Nrps::listAll();
         return View('lti1p3::welcome')->with(['instance' => $instance]);
     }
 
@@ -36,6 +39,8 @@ class Lti1p3Controller {
             $data->context = $context;
             $data->resourceLink = $resourceLink;
             $data->user = $user;
+            $data->content = $content;
+            $data->jwt = $request->id_token;
             if(config('lti1p3.ENABLE_AUTH')){
                 Auth::login($user);
             }

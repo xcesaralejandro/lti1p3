@@ -4,6 +4,7 @@ use App\Models\Context;
 use App\Models\Platform;
 use App\Models\ResourceLink;
 use App\Models\User;
+use xcesaralejandro\lti1p3\Classes\Content;
 
 class Instance 
 {
@@ -11,4 +12,6 @@ class Instance
     public Context $context;
     public ResourceLink $resourceLink;
     public User $user;
+    public Content $content;
+    public string $jwt;
 }
