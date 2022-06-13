@@ -22,6 +22,7 @@ class TokenValidator {
 
     public static function assertValidJwt(Content $content, Platform $platform) : Void {
         $hasErrors = false;
+        $message = 'Part of the content inside token delivered by the lms does not match with platform configuration.';
         if($platform->issuer_id != $content->getIss()){
             $message = "The platform issuer does not match the token issuer";
             $hasErrors = true;
@@ -30,12 +31,12 @@ class TokenValidator {
             $message = "The platform client_id does not match the token audience";
             $hasErrors = true;
         }
-        if($platform->deployment_id != $content->getDeploymentId()){
-            $message = "The platform deployment_id does not match the token deployment_id";
+        $registered_deployment_ids = $platform->deployments->pluck('lti_id')->toArray();
+        if(!in_array($content->getDeploymentId(), $registered_deployment_ids) && !$platform->deployment_id_autoregister){
+            $message = "The deployment_id that is being launched is not registered and the automatic registration of new deployment_id is disabled for the platform.";
             $hasErrors = true;
         }
         if($hasErrors){
-            $message = 'The content of JWT does not match with platform';
             throw new \Exception($message);
         }
     }

@@ -3,11 +3,14 @@
     <h1 class="text-center mt-5">LTI 1.3 - Current instance</h1>
     <hr/>
     @php
+    unset($instance->platform->deployments);
     $cards = [
       'User' => $instance->user->toArray(),
-      'Resource' => $instance->resourceLink->toArray(),
+      'Resource link' => $instance->resourceLink->toArray(),
       'Context' => $instance->context->toArray(),
-      'Platform' => $instance->platform->toArray()];
+      'Deployment' => $instance->deployment->toArray(),
+      'Platform' => $instance->platform->toArray()
+    ];
     @endphp
     <div class="row">
       @foreach($cards as $name => $card)

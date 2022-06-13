@@ -14,14 +14,14 @@ class NewPlatformRequest extends FormRequest
     public function rules() : array
     {
         return [
-            "record_name" => "required",
+            "local_name" => "required",
             "issuer_id" => "required",
             "client_id" => "required",
-            "deployment_id" => "required",
             "authorization_url" => "required",
             "authentication_url" => "required",
             "json_webkey_url" => "required",
-            "signature_method" => "required"
+            "signature_method" => "required",
+            "lti_advantage_token_url" => "nullable"
         ];
     }
 }

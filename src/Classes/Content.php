@@ -56,6 +56,10 @@ class Content {
         return $this->getClaims()?->deployment_id;
     }
 
+    public function getTargetLinkUri() : string {
+        return $this->getClaims()?->target_link_uri;
+    }
+
     public function getPlatform() : object {
         return $this->getClaims()?->tool_platform;
     }

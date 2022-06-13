@@ -15,13 +15,14 @@ class CreateContextsTable extends Migration
     {
         Schema::create('contexts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('platform_id');
+            $table->foreignId('deployment_id');
             $table->string('lti_id')->index();
             $table->string('label')->nullable();
             $table->string('title')->nullable();
-            $table->string('type')->nullable();
+            $table->text('type')->nullable();
             $table->timestamps();
-            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
+            $table->softDeletes();
+            $table->foreign('deployment_id')->references('id')->on('deployments')->onDelete('cascade');
         });
     }
 

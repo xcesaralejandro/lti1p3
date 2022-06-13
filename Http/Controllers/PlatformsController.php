@@ -10,7 +10,7 @@ class PlatformsController {
 
     public function index() : View {
         return View('lti1p3::admin.platforms.index')->with([
-            'platforms' => Platform::all()
+            'platforms' => Platform::withCount('deployments')->get(),
         ]);
     }
 
@@ -18,8 +18,10 @@ class PlatformsController {
         return View('lti1p3::admin.platforms.create');
     }
 
-    public function store(NewPlatformRequest $request){
-        Platform::create($request->all());
+    public function store(NewPlatformRequest $request) : View {
+        $record = $request->all();
+        $record['deployment_id_autoregister'] = isset($request->deployment_id_autoregister);
+        Platform::create($record);
         return View('lti1p3::admin.platforms.create')
         ->with(['wasCreated' => true]);
     }

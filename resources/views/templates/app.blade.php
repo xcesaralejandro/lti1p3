@@ -14,7 +14,7 @@
     <header>
         @yield('header')
     </header>
-    <div class="container">
+    <div class="container-fluid main-content pt-4">
         @yield('content')
     </div>
     <footer>

@@ -11,36 +11,35 @@ use xcesaralejandro\lti1p3\Http\Requests\LaunchRequest;
 use xcesaralejandro\lti1p3\Models\User;
 
 class Lti1p3Controller {
-
     public function onLaunch(Instance $instance) : mixed {
         return View('lti1p3::welcome')->with(['instance' => $instance]);
     }
 
-    public function onError() : mixed {
-        abort(401);
+    public function onError(mixed $exception = null) : mixed {
+        return throw new \Exception($exception);
     }
 
     public function launchConnection(LaunchRequest $request) {
         if(Launch::isLoginHint($request)) {
-            return Launch::attemptLogin($request);
-        }else if(Launch::isValidLogin($request)){
-            Lti::init($request->id_token, $request->state);
-            $platform = Lti::getPlatform();
-            $content = Lti::getContent();
-            Launch::SyncPlatform($content, $platform);
-            $user = Launch::SyncUser($content, $platform->id);
-            $context = Launch::SyncContext($content, $platform->id);
-            $resourceLink = Launch::SyncResourceLink($content, $context);
-            $data = new Instance();
-            $data->platform = $platform;
-            $data->context = $context;
-            $data->resourceLink = $resourceLink;
-            $data->user = $user;
-            if(config('lti1p3.ENABLE_AUTH')){
-                Auth::login($user);
+            try{
+                return Launch::attemptLogin($request);
+            }catch(\Exception $exception){
+                $this->onError($exception);
             }
-            return $this->onLaunch($data);
-        }else{
+        }else if (Launch::isSuccessfulLoginAttempt($request)) {
+            try{
+                Lti::init($request->id_token, $request->state);
+                $platform = Lti::getPlatform();
+                $content = Lti::getContent();
+                $instance = Launch::syncAll($content, $platform);
+                if(config('lti1p3.ENABLE_AUTH')){
+                    Auth::login($instance->user);
+                }
+                return $this->onLaunch($instance);
+            }catch(\Exception $exception){
+                $this->onError($exception);
+            }
+        } else {
             return $this->onError();
         }
     }
