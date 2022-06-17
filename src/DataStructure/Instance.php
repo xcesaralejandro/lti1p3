@@ -13,4 +13,5 @@ class Instance
     public Context $context;
     public ResourceLink $resourceLink;
     public User $user;
+    public array $request;
 }
