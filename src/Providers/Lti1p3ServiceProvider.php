@@ -5,6 +5,7 @@ use Illuminate\Support\ServiceProvider;
 use xcesaralejandro\lti1p3\Classes\JWT;
 use xcesaralejandro\lti1p3\Classes\Launch;
 use xcesaralejandro\lti1p3\Classes\Lti;
+use xcesaralejandro\lti1p3\Classes\Message;
 
 class Lti1p3ServiceProvider extends ServiceProvider {
 
@@ -59,10 +60,6 @@ class Lti1p3ServiceProvider extends ServiceProvider {
             return new JWT();
         });
 
-        $this->app->bind('lti', function(){
-            return new Lti();
-        });
-        
         $this->mergeConfigFrom($this->packageBasePath('config/lti1p3.php'), "lti1p3");
         $this->loadMigrationsFrom($this->packageBasePath('database/migrations'));
     }

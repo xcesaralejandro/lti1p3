@@ -6,6 +6,7 @@ use xcesaralejandro\lti1p3\DataStructure\Claims;
 class Content {
 
     const LTI_SPEC_CLAIM = 'https://purl.imsglobal.org/spec/lti/claim/';
+    const LTI_DEEP_LINKING_SPEC_CLAIM = 'https://purl.imsglobal.org/spec/lti-dl/claim/';
     private object $raw_content;
 
     function __construct(object $raw_content){
@@ -62,6 +63,20 @@ class Content {
 
     public function getPlatform() : object {
         return $this->getClaims()?->tool_platform;
+    }
+
+    public function getDeepLinkingSettings() : ?object {
+        $key = static::LTI_DEEP_LINKING_SPEC_CLAIM."deep_linking_settings";
+        dd("wenas", gettype($this->raw_content?->$key), $key, $this->raw_content?->$key);
+        return $this->raw_content?->$key;
+    }
+
+    public function hasClaim(string $claim_name) : bool {
+        return isset($this->getClaims()?->$claim_name);
+    }
+
+    public function getMessageType() : string {
+        return $this->getClaims()?->message_type;
     }
 
     public function optionalPlatformAttribute(string $attribute) {

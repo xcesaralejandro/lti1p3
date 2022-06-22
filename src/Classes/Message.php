@@ -7,13 +7,15 @@ use xcesaralejandro\lti1p3\Facades\JWT;
 use xcesaralejandro\lti1p3\Models\Nonce;
 use App\Models\Platform;
 
-class Lti {
+class Message {
 
     private string $raw_jwt;
     private Content $content;
     private Platform $platform;
+    const LTI_DEEP_LINKING_REQUEST = 'LtiDeepLinkingRequest';
+    const LTI_RESOURCE_LINK_REQUEST = 'LtiResourceLinkRequest';
 
-    function init(string $jwt, string $nonce) : void {
+    function __construct(string $jwt, string $nonce) {
         $this->raw_jwt = $jwt;
         $nonce = Nonce::where(['value' => $nonce])->firstOrFail();
         $this->platform = $nonce->platform()->firstOrFail();
@@ -28,6 +30,18 @@ class Lti {
 
     public function getContent() : Content {
         return $this->content;
+    }
+
+    public function getType() : string {
+        return $this->content->getMessageType();
+    }
+
+    public function isDeepLinking() : bool {
+        return $this->getType() == static::LTI_DEEP_LINKING_REQUEST;
+    }
+
+    public function isResourceLink() : bool {
+        return $this->getType() == static::LTI_RESOURCE_LINK_REQUEST;
     }
 
     public function getRawJwtContent() : string {

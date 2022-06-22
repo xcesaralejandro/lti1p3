@@ -9,7 +9,8 @@ use App\Models\Platform;
 use App\Models\ResourceLink;
 use App\Models\User;
 use App\Models\UserRole;
-use xcesaralejandro\lti1p3\DataStructure\Instance;
+use xcesaralejandro\lti1p3\DataStructure\DeepLinkingInstance;
+use xcesaralejandro\lti1p3\DataStructure\ResourceLinkInstance;
 use xcesaralejandro\lti1p3\Models\Deployment;
 
 class Launch {
@@ -18,12 +19,8 @@ class Launch {
             return isset($request->login_hint);
         }
     
-        public function isSuccessfulLoginAttempt(LaunchRequest $request) : bool {
+        public function isSuccessfully(LaunchRequest $request) : bool {
             return  isset($request->id_token);
-        }
-
-        public function isFinalRequest(Content $content) : bool {
-            return !$this->isUnsignedRequest($content);
         }
 
         public function attemptLogin (LaunchRequest $request) : View {
@@ -51,19 +48,39 @@ class Launch {
            return $params;
         }
 
-        public function syncAll(Content $content, Platform $platform) : Instance {
+        public function syncResourceLinkRequest(Message $message) : ResourceLinkInstance {
+            $platform = $message->getPlatform();
+            $content = $message->getContent();
             $platform = Launch::syncPlatform($content, $platform);
             $deployment = Launch::syncDeployment($content, $platform);
             $user = Launch::syncUser($content, $platform->id);
             $context = Launch::syncContext($content, $deployment->id);
             $resourceLink = Launch::SyncResourceLink($content, $context);
             Launch::SyncUserRoles($content, $user->id, $context->id);
-            $instance = new Instance();
+            $instance = new ResourceLinkInstance();
             $instance->platform = $platform;
             $instance->deployment = $deployment;
             $instance->context = $context;
             $instance->resourceLink = $resourceLink;
             $instance->user = $user;
+            $instance->message = $message;
+            return $instance;
+        }
+
+        public function syncDeepLinkingRequest(Message $message) : DeepLinkingInstance {
+            $platform = $message->getPlatform();
+            $content = $message->getContent();
+            $platform = Launch::syncPlatform($content, $platform);
+            $deployment = Launch::syncDeployment($content, $platform);
+            $user = Launch::syncUser($content, $platform->id);
+            $context = Launch::syncContext($content, $deployment->id);
+            Launch::SyncUserRoles($content, $user->id, $context->id);
+            $instance = new DeepLinkingInstance();
+            $instance->platform = $platform;
+            $instance->deployment = $deployment;
+            $instance->context = $context;
+            $instance->user = $user;
+            $instance->message = $message;
             return $instance;
         }
 

@@ -1,6 +1,7 @@
 @extends('lti1p3::templates.app')
 @section('content')
-    <h1 class="text-center mt-5">LTI 1.3 - Current instance</h1>
+    <h1 class="text-center mt-5">LTI 1.3</h1>
+    <h6 class="text-center">Launched as Resource Link Request</h6>
     <hr/>
     @php
     unset($instance->platform->deployments);
