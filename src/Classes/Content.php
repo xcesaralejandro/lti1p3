@@ -67,7 +67,6 @@ class Content {
 
     public function getDeepLinkingSettings() : ?object {
         $key = static::LTI_DEEP_LINKING_SPEC_CLAIM."deep_linking_settings";
-        dd("wenas", gettype($this->raw_content?->$key), $key, $this->raw_content?->$key);
         return $this->raw_content?->$key;
     }
 

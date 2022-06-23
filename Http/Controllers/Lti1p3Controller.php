@@ -11,6 +11,7 @@ use xcesaralejandro\lti1p3\Http\Requests\LaunchRequest;
 use xcesaralejandro\lti1p3\Models\Nonce;
 use xcesaralejandro\lti1p3\Models\User;
 use GuzzleHttp\Psr7\Request;
+use Ramsey\Uuid\Uuid;
 use xcesaralejandro\lti1p3\Classes\Message;
 use xcesaralejandro\lti1p3\DataStructure\DeepLinkingInstance;
 use xcesaralejandro\lti1p3\DataStructure\ResourceLinkInstance;
@@ -21,8 +22,7 @@ class Lti1p3Controller {
     }
 
     public function onDeepLinkingRequest(DeepLinkingInstance $instance) : mixed {
-        $this->deepLinkingForCreateResource($instance);
-        return View('lti1p3::welcome')->with(['instance' => $instance]);
+        return $this->deepLinkingForCreateResource($instance);
     }
 
     public function onError(mixed $exception = null) : mixed {
@@ -31,35 +31,29 @@ class Lti1p3Controller {
 
     public function deepLinkingForCreateResource(DeepLinkingInstance $instance): mixed {
         $deeplinking_settings = $instance->message->getContent()?->getDeepLinkingSettings();
-        dd($deeplinking_settings);
         $nonce = Nonce::create(['platform_id' => $instance->platform->id]);
-        $url = $instance->platform->authentication_url;
-        // $url = "https://udec.test.instructure.com/login/oauth2/token";
-        $resource = [
-            // "type" => "link",
-            // "title" => "This is the default title",
-            // "url" => "https://www.google.com"
-
-            "type" => "html",
-            "html"=> "<h1>al fin funciona esta shiettttttt</h1>"
+        $url = $deeplinking_settings->deep_link_return_url;
+        $resource = [[
+                "type" => "ltiResourceLink",
+                "title" => "This is the default title for TESTTTTTTTTTTTTTTTTTTTT",
+                "url" => "https://lti.cl/",
+                "presentation" => [
+                    "documentTarget" => "iframe",
+                ]
+            ]
         ];
         $payload = [
-            "iss" => 'https://lti.cl',
-            "aud" => 'https://lti.cl',
+            "iss" => $instance->platform->client_id,
+            "aud" => ["https://canvas.test.instructure.com"],
             "exp" => time() + 6000,
-            "iat" => time(),
+            "iat" => time() - 100,
             "nonce" => $nonce->value,
             "azp" => 'https://lti.cl',
             "https://purl.imsglobal.org/spec/lti/claim/deployment_id" => $instance->deployment->lti_id,
             "https://purl.imsglobal.org/spec/lti/claim/message_type" => "LtiDeepLinkingResponse",
             "https://purl.imsglobal.org/spec/lti/claim/version" => "1.3.0",
-            "https://purl.imsglobal.org/spec/lti-dl/claim/content_items" => [$resource],
-            "https://purl.imsglobal.org/spec/lti-dl/claim/data" => [
-                "csrftoken:" . $instance->request['state']
-            ],
-            "presentation" => [
-                "documentTarget" => "iframe",
-            ]
+            "https://purl.imsglobal.org/spec/lti-dl/claim/content_items" => $resource,
+            "https://purl.imsglobal.org/spec/lti-dl/claim/data" => $deeplinking_settings->deep_link_return_url,
         ];
         $private_key = config('lti1p3.PRIVATE_KEY');
         $signature_method = config('lti1p3.SIGNATURE_METHOD');
