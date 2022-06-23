@@ -18,6 +18,7 @@ use xcesaralejandro\lti1p3\DataStructure\ResourceLinkInstance;
 
 class Lti1p3Controller {
     public function onResourceLinkRequest(ResourceLinkInstance $instance) : mixed {
+        dd("okales", $instance);
         return View('lti1p3::welcome')->with(['instance' => $instance]);
     }
 
@@ -34,26 +35,25 @@ class Lti1p3Controller {
         $nonce = Nonce::create(['platform_id' => $instance->platform->id]);
         $url = $deeplinking_settings->deep_link_return_url;
         $resource = [[
-                "type" => "ltiResourceLink",
-                "title" => "This is the default title for TESTTTTTTTTTTTTTTTTTTTT",
-                "url" => "https://lti.cl/",
-                "presentation" => [
-                    "documentTarget" => "iframe",
+                    "type" => "ltiResourceLink",
+                    "title" => "This is the default title for TESTTTTTTTTTTTTTTTTTTTT",
+                    "url" => "https://lti.cl?custom_resource_with_id=1000",
+                    "presentation" => [
+                        "documentTarget" => "iframe",
+                    ]
                 ]
-            ]
         ];
         $payload = [
             "iss" => $instance->platform->client_id,
-            "aud" => ["https://canvas.test.instructure.com"],
+            "aud" => $instance->platform->issuer_id,
             "exp" => time() + 6000,
             "iat" => time() - 100,
             "nonce" => $nonce->value,
-            "azp" => 'https://lti.cl',
             "https://purl.imsglobal.org/spec/lti/claim/deployment_id" => $instance->deployment->lti_id,
             "https://purl.imsglobal.org/spec/lti/claim/message_type" => "LtiDeepLinkingResponse",
             "https://purl.imsglobal.org/spec/lti/claim/version" => "1.3.0",
             "https://purl.imsglobal.org/spec/lti-dl/claim/content_items" => $resource,
-            "https://purl.imsglobal.org/spec/lti-dl/claim/data" => $deeplinking_settings->deep_link_return_url,
+            // "https://purl.imsglobal.org/spec/lti-dl/claim/data" => $deeplinking_settings->deep_link_return_url,
         ];
         $private_key = config('lti1p3.PRIVATE_KEY');
         $signature_method = config('lti1p3.SIGNATURE_METHOD');
