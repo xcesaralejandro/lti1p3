@@ -9,6 +9,7 @@ use App\Models\Platform;
 use App\Models\ResourceLink;
 use App\Models\User;
 use App\Models\UserRole;
+use Ramsey\Uuid\Uuid;
 use xcesaralejandro\lti1p3\DataStructure\DeepLinkingInstance;
 use xcesaralejandro\lti1p3\DataStructure\ResourceLinkInstance;
 use xcesaralejandro\lti1p3\Models\Deployment;
@@ -153,5 +154,19 @@ class Launch {
             $conditions = ['lti_id' => $lti_id, 'context_id' => $context->id];
             $resourceLink = ResourceLink::updateOrCreate($conditions, $fields);
             return $resourceLink;
+        }
+
+        public function buildInstanceSession(ResourceLinkInstance|DeepLinkingInstance $instance) : string {
+            $key = (string) Uuid::uuid4();
+            session([$key => $instance]);
+            return $key;
+        }
+
+        public function findInstanceOrFail(string $instance_id) : ResourceLinkInstance|DeepLinkingInstance {
+            $instance = session()->get($instance_id, null);
+            if(empty($instance)){
+                abort(404, "Instance not found for id: {$instance_id}");
+            }
+            return $instance;
         }
     }

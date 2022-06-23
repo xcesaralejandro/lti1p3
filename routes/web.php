@@ -5,6 +5,7 @@ use App\Http\Controllers\LtiController;
 use xcesaralejandro\lti1p3\Http\Controllers\{
     AuthController,
     DeploymentsController,
+    ExampleController,
     PlatformsController
 };
 
@@ -26,4 +27,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['web','auth']], function () {
     Route::resource('/platforms', PlatformsController::class, ['as' => 'lti1p3']);
     Route::resource('platforms/{platform_id}/deployments', DeploymentsController::class, ['as' => 'lti1p3']);
+});
+
+
+Route::group(['prefix' => 'examples', 'middleware' => ['web','auth']], function () {
+    Route::post('/deeplinking', [ExampleController::class, 'showContent'], ['as' => 'lti1p3'])->name('deeplinking.example');
 });

@@ -57,6 +57,10 @@ class Content {
         return $this->getClaims()?->deployment_id;
     }
 
+    public function hasTargetLinkUriRedirection() : bool {
+        return $this->getTargetLinkUri() != route('lti1p3.connect');
+    }
+
     public function getTargetLinkUri() : string {
         return $this->getClaims()?->target_link_uri;
     }
@@ -78,12 +82,8 @@ class Content {
         return $this->getClaims()?->message_type;
     }
 
-    public function optionalPlatformAttribute(string $attribute) {
-        return $this->safe($this->getPlatform(), $attribute);
-    }
-
-    private function safe(?object $item, string $column) : mixed {
-        return isset($item?->$column) ? $item->$column : null;
+    public function optionalPlatformAttribute(string $attribute) : mixed {
+        return $this->getPlatform()?->$attribute;
     }
 
     public function getContext() : object {
@@ -95,7 +95,7 @@ class Content {
     }
 
     public function optionalResourceLinkAttribute(string $attribute) : mixed {
-        return $this->safe($this->getResourceLink(), $attribute);
+        return $this->getResourceLink()?->$attribute;
     }
 
     public function tokenIsExpired() : bool {
