@@ -21,6 +21,7 @@ class CreateInstancesTable extends Migration
             $table->foreignId('resource_link_id')->nullable();
             $table->foreignId('user_id');
             $table->text('initial_message');
+            $table->json('custom')->nullable();
             $table->timestamp('created_at');
             $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
             $table->foreign('deployment_id')->references('id')->on('deployments')->onDelete('cascade');
