@@ -13,5 +13,4 @@ class DeepLinkingInstance
     public Context $context;
     public User $user;
     public Message $message;
-    public array $request;
 }

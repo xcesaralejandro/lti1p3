@@ -38,12 +38,10 @@ class Lti1p3Controller {
                 $message = new Message($request->id_token, $request->state);
                 if($message->isDeepLinking()){
                     $instance = Launch::syncDeepLinkingRequest($message);
-                    $instance->request = $request->all();
                     $instance_id = Launch::storeInstance($instance);
                     return $this->onDeepLinkingRequest($instance_id);
                 }else if($message->isResourceLink()){
                     $instance = Launch::syncResourceLinkRequest($message);
-                    $instance->request = $request->all();
                     $content = $message->getContent();
                     $instance_id = Launch::storeInstance($instance);
                     if($content->hasTargetLinkUriRedirection()){

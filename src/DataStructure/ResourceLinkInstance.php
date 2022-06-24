@@ -15,5 +15,4 @@ class ResourceLinkInstance
     public ResourceLink $resourceLink;
     public User $user;
     public Message $message;
-    public array $request;
 }
