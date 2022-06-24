@@ -4,8 +4,6 @@
 
 return [
 
-    'ENABLE_AUTH' => true,
-    
     'VERIFY_HTTPS_CERTIFICATE' => false,
 
     'SIGNATURE_METHOD' => 'RS256',
@@ -18,9 +16,6 @@ return [
     -----END RSA PRIVATE KEY-----
     EOD,
 
-    // If you set it to null, OIDC will use the default value.
-    'DEFAULT_TARGET_LINK_URI_FOR_AUTOREGISTER_DEPLOYMENTS' => null, 
-    
     'LTI_ADMIN_ROLES_SPEC' => [
         'Administrator', 
         'Developer',

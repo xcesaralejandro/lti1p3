@@ -9,10 +9,14 @@ use App\Models\Platform;
 use App\Models\ResourceLink;
 use App\Models\User;
 use App\Models\UserRole;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Ramsey\Uuid\Uuid;
 use xcesaralejandro\lti1p3\DataStructure\DeepLinkingInstance;
 use xcesaralejandro\lti1p3\DataStructure\ResourceLinkInstance;
 use xcesaralejandro\lti1p3\Models\Deployment;
+use xcesaralejandro\lti1p3\Models\Instance;
 
 class Launch {
 
@@ -156,17 +160,20 @@ class Launch {
             return $resourceLink;
         }
 
-        public function buildInstanceSession(ResourceLinkInstance|DeepLinkingInstance $instance) : string {
-            $key = (string) Uuid::uuid4();
-            session([$key => $instance]);
-            return $key;
-        }
-
-        public function findInstanceOrFail(string $instance_id) : ResourceLinkInstance|DeepLinkingInstance {
-            $instance = session()->get($instance_id, null);
-            if(empty($instance)){
-                abort(404, "Instance not found for id: {$instance_id}");
-            }
-            return $instance;
+        public function storeInstance(ResourceLinkInstance|DeepLinkingInstance $instance) : string {
+            do{
+                $uuid = (string) Uuid::uuid4();
+                $fields =  [
+                    'id' => $uuid, 
+                    'platform_id' => $instance->platform->id, 
+                    'deployment_id' => $instance->deployment->id, 
+                    'context_id' => $instance->context->id, 
+                    'resource_link_id' => $instance->resourceLink->id ?? null, 
+                    'user_id' => $instance->user->id, 
+                    'initial_message' => $instance->message->getRawJwtContent(), 
+                    'created_at' => Carbon::now()
+                ];
+            }while(!Instance::create($fields));
+            return $uuid;
         }
     }

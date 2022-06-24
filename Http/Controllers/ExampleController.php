@@ -1,14 +1,16 @@
 <?php 
 namespace xcesaralejandro\lti1p3\Http\Controllers;
 
+use Illuminate\Http\Request;
 use xcesaralejandro\lti1p3\DataStructure\DeepLinkingInstance;
 use xcesaralejandro\lti1p3\Models\Nonce;
 
+
 class ExampleController {
 
-    public function showContent(string $some_string){
-        dd("okaaa", $some_string);
-        return $this->deepLinkingForCreateResource($instance);
+    public function showContent(Request $request){
+        dd("showContent", $request->all());
+        // return $this->deepLinkingForCreateResource($instance);
     }
 
     public function deepLinkingForCreateResource(DeepLinkingInstance $instance): mixed {

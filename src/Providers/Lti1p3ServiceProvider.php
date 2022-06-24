@@ -17,6 +17,9 @@ class Lti1p3ServiceProvider extends ServiceProvider {
 
         $this->loadRoutesFrom($this->packageBasePath('routes/api.php'));
 
+        $router = $this->app['router'];
+        $router->aliasMiddleware('lti_instance_recovery', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\InstanceRecovery::class');
+
         $this->loadTranslationsFrom($this->packageBasePath('resources/lang'), 'lti1p3');
 
         $this->publishes([

@@ -29,7 +29,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web','auth']], function () 
     Route::resource('platforms/{platform_id}/deployments', DeploymentsController::class, ['as' => 'lti1p3']);
 });
 
-
-Route::group(['prefix' => 'examples', 'middleware' => ['web','auth']], function () {
-    Route::post('/deeplinking', [ExampleController::class, 'showContent'], ['as' => 'lti1p3'])->name('deeplinking.example');
+Route::group(['prefix' => 'example', 'middleware' => 'lti_instance_recovery'], function () {
+    Route::post('/deeplinking', [ExampleController::class, 'showContent'])->name('deeplinking.example');
 });

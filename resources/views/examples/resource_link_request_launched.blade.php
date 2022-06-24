@@ -7,7 +7,7 @@
     unset($instance->platform->deployments);
     $cards = [
       'User' => $instance->user->toArray(),
-      'Resource link' => $instance->resourceLink->toArray(),
+      'Resource link' => $instance->resource_link->toArray(),
       'Context' => $instance->context->toArray(),
       'Deployment' => $instance->deployment->toArray(),
       'Platform' => $instance->platform->toArray()

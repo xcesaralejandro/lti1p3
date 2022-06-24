@@ -4,7 +4,6 @@ namespace xcesaralejandro\lti1p3\Http\Controllers;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use xcesaralejandro\lti1p3\DataStructure\Instance;
 use xcesaralejandro\lti1p3\Facades\JWT;
 use xcesaralejandro\lti1p3\Facades\Launch;
 use xcesaralejandro\lti1p3\Http\Requests\LaunchRequest;
@@ -15,10 +14,11 @@ use Ramsey\Uuid\Uuid;
 use xcesaralejandro\lti1p3\Classes\Message;
 use xcesaralejandro\lti1p3\DataStructure\DeepLinkingInstance;
 use xcesaralejandro\lti1p3\DataStructure\ResourceLinkInstance;
+use xcesaralejandro\lti1p3\Models\Instance;
 
 class Lti1p3Controller {
     public function onResourceLinkRequest(string $instance_id) : mixed {
-        $instance = Launch::findInstanceOrFail($instance_id);
+        $instance = Instance::RecoveryFromId($instance_id);
         return View('lti1p3::examples.resource_link_request_launched')->with(['instance' => $instance, 'instance_id' => $instance_id]);
     }
 
@@ -35,37 +35,29 @@ class Lti1p3Controller {
             if(Launch::isLoginHint($request)) {
                 return Launch::attemptLogin($request);
             } else if (Launch::isSuccessfully($request)) {
-                    $message = new Message($request->id_token, $request->state);
-                    if($message->isDeepLinking()){
-                        $instance = Launch::syncDeepLinkingRequest($message);
-                        $instance->request = $request->all();
-                        $this->auth($instance->user);
-                        $instance_id = Launch::buildInstanceSession($instance);
-                        return $this->onDeepLinkingRequest($instance_id);
-                    }else if($message->isResourceLink()){
-                        $instance = Launch::syncResourceLinkRequest($message);
-                        $instance->request = $request->all();
-                        $this->auth($instance->user);
-                        $content = $message->getContent();
-                        if($content->hasTargetLinkUriRedirection()){
-                            redirect($content->getTargetLinkUri());
-                        }
-                        $instance_id = Launch::buildInstanceSession($instance);
-                        return $this->onResourceLinkRequest($instance_id);
-                    }else{
-                        $this->onError("Lti message type is not supported."); 
+                $message = new Message($request->id_token, $request->state);
+                if($message->isDeepLinking()){
+                    $instance = Launch::syncDeepLinkingRequest($message);
+                    $instance->request = $request->all();
+                    $instance_id = Launch::storeInstance($instance);
+                    return $this->onDeepLinkingRequest($instance_id);
+                }else if($message->isResourceLink()){
+                    $instance = Launch::syncResourceLinkRequest($message);
+                    $instance->request = $request->all();
+                    $content = $message->getContent();
+                    $instance_id = Launch::storeInstance($instance);
+                    if($content->hasTargetLinkUriRedirection()){
+                        redirect($content->getTargetLinkUri());
                     }
+                    return $this->onResourceLinkRequest($instance_id);
+                }else{
+                    $this->onError("Lti message type is not supported."); 
+                }
             } else {
                 return $this->onError();
             }
         }catch(\Exception $exception){
             $this->onError($exception);
-        }
-    }
-
-    private function auth(User $user) : void {
-        if(config('lti1p3.ENABLE_AUTH')){
-            Auth::login($user);
         }
     }
 
