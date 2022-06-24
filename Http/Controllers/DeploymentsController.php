@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use xcesaralejandro\lti1p3\Http\Requests\NewDeploymentRequest;
 use xcesaralejandro\lti1p3\Http\Requests\NewPlatformRequest;
-use xcesaralejandro\lti1p3\Models\Deployment;
-use xcesaralejandro\lti1p3\Models\Platform;
+use App\Models\Deployment;
+use App\Models\Platform;
 
 class DeploymentsController {
 

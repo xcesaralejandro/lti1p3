@@ -5,7 +5,7 @@ use App\Models\Platform;
 use App\Models\ResourceLink;
 use App\Models\User;
 use xcesaralejandro\lti1p3\Classes\Message;
-use xcesaralejandro\lti1p3\Models\Deployment;
+use App\Models\Deployment;
 
 class ResourceLinkInstance 
 {

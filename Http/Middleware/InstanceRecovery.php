@@ -4,7 +4,7 @@ namespace xcesaralejandro\lti1p3\Http\Middleware;
  
 use Closure;
 use xcesaralejandro\lti1p3\Facades\Launch;
-use xcesaralejandro\lti1p3\Models\Instance;
+use App\Models\Instance;
 
 class InstanceRecovery
 {

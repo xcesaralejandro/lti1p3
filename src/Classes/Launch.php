@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Session;
 use Ramsey\Uuid\Uuid;
 use xcesaralejandro\lti1p3\DataStructure\DeepLinkingInstance;
 use xcesaralejandro\lti1p3\DataStructure\ResourceLinkInstance;
-use xcesaralejandro\lti1p3\Models\Deployment;
-use xcesaralejandro\lti1p3\Models\Instance;
+use App\Models\Deployment;
+use App\Models\Instance;
 
 class Launch {
 

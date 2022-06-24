@@ -4,7 +4,7 @@ namespace xcesaralejandro\lti1p3\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use xcesaralejandro\lti1p3\Http\Requests\NewPlatformRequest;
-use xcesaralejandro\lti1p3\Models\Platform;
+use App\Models\Platform;
 
 class PlatformsController {
 
