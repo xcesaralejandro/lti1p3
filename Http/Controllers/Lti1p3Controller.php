@@ -19,12 +19,11 @@ use xcesaralejandro\lti1p3\DataStructure\ResourceLinkInstance;
 class Lti1p3Controller {
     public function onResourceLinkRequest(string $instance_id) : mixed {
         $instance = Launch::findInstanceOrFail($instance_id);
-        return View('lti1p3::examples.resource_link_request_launched')->with(['instance' => $instance, 'lti1p3.instance_id' => $instance_id]);
+        return View('lti1p3::examples.resource_link_request_launched')->with(['instance' => $instance, 'instance_id' => $instance_id]);
     }
 
     public function onDeepLinkingRequest(string $instance_id) : mixed {
-        $instance = Launch::findInstanceOrFail($instance_id);
-        return View('lti1p3::examples.deep_linking_request_builder')->with(['lti1p3.instance_id' => $instance_id]);
+        return View('lti1p3::examples.deep_linking_request_builder')->with(['instance_id' => $instance_id]);
     }
 
     public function onError(mixed $exception = null) : mixed {
@@ -42,7 +41,7 @@ class Lti1p3Controller {
                         $instance->request = $request->all();
                         $this->auth($instance->user);
                         $instance_id = Launch::buildInstanceSession($instance);
-                        return $this->onDeepLinkingRequest($instance, $instance_id);
+                        return $this->onDeepLinkingRequest($instance_id);
                     }else if($message->isResourceLink()){
                         $instance = Launch::syncResourceLinkRequest($message);
                         $instance->request = $request->all();

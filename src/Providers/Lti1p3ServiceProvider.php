@@ -1,6 +1,7 @@
 <?php 
 namespace xcesaralejandro\lti1p3\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use xcesaralejandro\lti1p3\Classes\JWT;
 use xcesaralejandro\lti1p3\Classes\Launch;
@@ -62,6 +63,11 @@ class Lti1p3ServiceProvider extends ServiceProvider {
 
         $this->mergeConfigFrom($this->packageBasePath('config/lti1p3.php'), "lti1p3");
         $this->loadMigrationsFrom($this->packageBasePath('database/migrations'));
+
+        Blade::directive('addinstance', function ($instance_id) {
+            return '<input type="hidden" name="lti1p3_instance_id" value="'."<?php echo $instance_id; ?>".'" />';
+        });
+
     }
 
     protected function packageBasePath($uri){
