@@ -2,14 +2,16 @@
 namespace xcesaralejandro\lti1p3\Http\Controllers;
 
 use Illuminate\Http\Request;
+use xcesaralejandro\lti1p3\Classes\DeepLinkingResponse;
 use xcesaralejandro\lti1p3\DataStructure\DeepLinkingInstance;
 use xcesaralejandro\lti1p3\Models\Nonce;
 
 
-class ExampleController {
+class ExamplesController {
 
     public function showContent(Request $request){
-        dd("showContent", $request->all());
+        $response = new DeepLinkingResponse($request->lti1p3_instance);
+        return $response->submit();
         // return $this->deepLinkingForCreateResource($instance);
     }
 

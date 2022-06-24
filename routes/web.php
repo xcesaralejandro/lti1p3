@@ -5,7 +5,7 @@ use App\Http\Controllers\LtiController;
 use xcesaralejandro\lti1p3\Http\Controllers\{
     AuthController,
     DeploymentsController,
-    ExampleController,
+    ExamplesController,
     PlatformsController
 };
 
@@ -30,5 +30,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web','auth']], function () 
 });
 
 Route::group(['prefix' => 'example', 'middleware' => 'lti_instance_recovery'], function () {
-    Route::post('/deeplinking', [ExampleController::class, 'showContent'])->name('deeplinking.example');
+    Route::post('/deeplinking', [ExamplesController::class, 'showContent'])->name('deeplinking.example');
 });
