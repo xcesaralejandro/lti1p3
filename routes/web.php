@@ -30,5 +30,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web','auth']], function () 
 });
 
 Route::group(['prefix' => 'example', 'middleware' => 'lti_instance_recovery'], function () {
-    Route::post('/deeplinking', [ExamplesController::class, 'showContent'])->name('deeplinking.example');
+    Route::post('/deeplinking', [ExamplesController::class, 'SendDeepLinkingMessage'])->name('deep_linking.example');
+    Route::get('/deeplinking/view', [ExamplesController::class, 'launchDeepLinkingUrl'])->name('deep_linking.example.view');
 });

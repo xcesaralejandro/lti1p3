@@ -56,4 +56,12 @@ class Message {
         return $content;
     }
 
+    public static function decodeJWTMessage(Platform $platform, string $initial_message) : Content {
+        $jwk = $platform->getPublicJwk();
+        $signature_method = $platform->signature_method;
+        $raw_content = JWT::decode($initial_message, $jwk, array($signature_method));
+        $content = new Content($raw_content);
+        return $content;
+    }
+
 }
