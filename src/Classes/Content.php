@@ -61,8 +61,20 @@ class Content {
         return $this->getTargetLinkUri() != route('lti1p3.connect');
     }
 
-    public function getTargetLinkUri() : string {
-        return $this->getClaims()?->target_link_uri;
+    public function getTargetLinkUri(array $extra_params = []) : string {
+        $url = $this->getClaims()?->target_link_uri;
+        return $this->addParamsToUrl($url, $extra_params);
+    }
+
+    private function addParamsToUrl(string $url, array $params) : string {
+        if(!count($params) > 0){
+            return $url;
+        }
+        foreach($params as $name => $value){
+            $concat = str_contains($url, '?') ? '&' : '?';
+            $url .= "{$concat}{$name}={$value}";
+        }
+        return $url;
     }
 
     public function getPlatform() : object {

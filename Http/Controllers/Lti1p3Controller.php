@@ -45,7 +45,8 @@ class Lti1p3Controller {
                     $content = $message->getContent();
                     $instance_id = Launch::storeInstance($instance);
                     if($content->hasTargetLinkUriRedirection()){
-                        return redirect($content->getTargetLinkUri());
+                        $extra_params = ['lti1p3_instance_id' => $instance_id];
+                        return redirect($content->getTargetLinkUri($extra_params));
                     }
                     return $this->onResourceLinkRequest($instance_id);
                 }else{

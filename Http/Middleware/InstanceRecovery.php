@@ -11,7 +11,7 @@ class InstanceRecovery
     public function handle($request, Closure $next){
         if(isset($request->lti1p3_instance_id)){
             $instance = Instance::RecoveryFromId($request->lti1p3_instance_id);
-            $request->request->set('lti1p3_instance', $instance);
+            $request->merge(['lti1p3_instance' => $instance]);
         }
         return $next($request);
     }

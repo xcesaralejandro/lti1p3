@@ -10,7 +10,7 @@ use xcesaralejandro\lti1p3\Models\Nonce;
 class ExamplesController {
 
     public function SendDeepLinkingMessage(Request $request){
-        $launch_at = route('deep_linking.example.view', ['lti1p3_instance_id' => $request->lti1p3_instance_id, 'title' => $request->title, 
+        $launch_at = route('deep_linking.example.view', ['title' => $request->title, 
         'description' => $request->description, 'custom' => $request->custom]);
         $deep_linking_response = new DeepLinkingResponse($request->lti1p3_instance);
         $content_item = [
