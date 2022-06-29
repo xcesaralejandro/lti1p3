@@ -23,13 +23,13 @@ class Launch {
         public function isLoginHint(LaunchRequest $request) : bool {
             return isset($request->login_hint);
         }
-    
+
         public function isSuccessfully(LaunchRequest $request) : bool {
             return  isset($request->id_token);
         }
 
         public function attemptLogin (LaunchRequest $request) : View {
-            $platform = Platform::where(['issuer_id' => $request->iss, 
+            $platform = Platform::where(['issuer_id' => $request->iss,
                 'client_id' => $request->client_id])->firstOrFail();
             $login_request = ['url' => $platform->authentication_url,
                 'params' => $this->loginParams($platform, $request)];
@@ -90,7 +90,7 @@ class Launch {
         }
 
         public function SyncUserRoles(Content $content, int $user_id, int $lti_context_id) : void {
-            $current_roles = $content->getClaims()?->roles ?? [];
+            $current_roles = $content->getUserRoles();
             $existing_roles = UserRole::where('user_id', $user_id)->where('lti_context_id', $lti_context_id)
             ->where('creation_context', 'LTI')->pluck('name')->toArray();
             $for_add = array_diff($current_roles, $existing_roles);
@@ -121,7 +121,7 @@ class Launch {
             }
             return $deployment;
         }
-        
+
         public function syncUser(Content $content, int $platform_id) : User {
             $fields = [
                 'name' => $content->getUserName(),
@@ -129,8 +129,8 @@ class Launch {
                 'family_name' => $content->getUserFamilyName(),
                 'email' => $content->getUserEmail(),
                 'picture' => $content->getUserPicture(),
-                'roles' => implode(" ", $content->getClaims()->roles),
-                'person_sourceid' => $content->getClaims()->lis->person_sourcedid,
+                'roles' => implode(" ", $content->getUserRoles()),
+                'person_sourceid' => $content->getLis()?->person_sourcedid,
             ];
             $conditions = ['lti_id' => $content->getUserId(), 'platform_id' => $platform_id];
             $user = User::updateOrCreate($conditions, $fields);
@@ -143,11 +143,11 @@ class Launch {
                 'title' => $content->getContext()?->title,
                 'type' => implode(" ", $content->getContext()?->type)
             ];
-            $conditions = ['lti_id' => $content->getClaims()->context->id,'deployment_id' => $deployment_id];
+            $conditions = ['lti_id' => $content->getContext()?->id,'deployment_id' => $deployment_id];
             $context = Context::updateOrCreate($conditions, $fields);
             return $context;
         }
-    
+
         public function SyncResourceLink(Content $content, Context $context) : ResourceLink {
             $fields = [
                 'description' => $content->optionalResourceLinkAttribute('description'),
@@ -164,13 +164,13 @@ class Launch {
             do{
                 $uuid = (string) Uuid::uuid4();
                 $fields =  [
-                    'id' => $uuid, 
-                    'platform_id' => $instance->platform->id, 
-                    'deployment_id' => $instance->deployment->id, 
-                    'context_id' => $instance->context->id, 
-                    'resource_link_id' => $instance->resourceLink->id ?? null, 
-                    'user_id' => $instance->user->id, 
-                    'initial_message' => $instance->message->getRawJwtContent(), 
+                    'id' => $uuid,
+                    'platform_id' => $instance->platform->id,
+                    'deployment_id' => $instance->deployment->id,
+                    'context_id' => $instance->context->id,
+                    'resource_link_id' => $instance->resourceLink->id ?? null,
+                    'user_id' => $instance->user->id,
+                    'initial_message' => $instance->message->getRawJwtContent(),
                     'created_at' => Carbon::now()
                 ];
             }while(!Instance::create($fields));

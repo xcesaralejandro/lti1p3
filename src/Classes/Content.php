@@ -5,7 +5,7 @@ use xcesaralejandro\lti1p3\DataStructure\Claims;
 
 class Content {
 
-    const LTI_SPEC_CLAIM = 'https://purl.imsglobal.org/spec/lti/claim/';
+    const LTI_STANDARD_CLAIM = 'https://purl.imsglobal.org/spec/lti/claim/';
     const LTI_DEEP_LINKING_SPEC_CLAIM = 'https://purl.imsglobal.org/spec/lti-dl/claim/';
     private object $raw_content;
 
@@ -37,6 +37,16 @@ class Content {
         return $this->getJwtRProperty('picture', $required = false);
     }
 
+    public function getUserRoles() : array {
+        $property = $this->StandardClaimFor('roles');
+        return $this->getJwtRProperty($property) ?? [];
+    }
+
+    public function getLis() : ?object {
+        $property = $this->StandardClaimFor('lis');
+        return $this->getJwtRProperty($property);
+    }
+
     public function getRawJwt() : object {
         return $this->raw_content;
     }
@@ -50,11 +60,13 @@ class Content {
     }
 
     public function getLtiVersion() : string {
-        return $this->getClaims()?->version;
+        $property = $this->StandardClaimFor('version');
+        return $this->getJwtRProperty($property);
     }
 
     public function getDeploymentId() : string {
-        return $this->getClaims()?->deployment_id;
+        $property = $this->StandardClaimFor('deployment_id');
+        return $this->getJwtRProperty($property);
     }
 
     public function hasTargetLinkUriRedirection() : bool {
@@ -62,7 +74,8 @@ class Content {
     }
 
     public function getTargetLinkUri(array $extra_params = []) : string {
-        $url = $this->getClaims()?->target_link_uri;
+        $property = $this->StandardClaimFor('target_link_uri');
+        $url = $this->getJwtRProperty($property);
         return $this->addParamsToUrl($url, $extra_params);
     }
 
@@ -78,7 +91,8 @@ class Content {
     }
 
     public function getPlatform() : object {
-        return $this->getClaims()?->tool_platform;
+        $property = $this->StandardClaimFor('tool_platform');
+        return $this->getJwtRProperty($property);
     }
 
     public function getDeepLinkingSettings() : ?object {
@@ -86,24 +100,23 @@ class Content {
         return $this->raw_content?->$key;
     }
 
-    public function hasClaim(string $claim_name) : bool {
-        return isset($this->getClaims()?->$claim_name);
-    }
-
     public function getMessageType() : string {
-        return $this->getClaims()?->message_type;
+        $property = $this->StandardClaimFor('message_type');
+        return $this->getJwtRProperty($property);
     }
 
     public function optionalPlatformAttribute(string $attribute) : mixed {
         return $this->getPlatform()?->$attribute;
     }
 
-    public function getContext() : object {
-        return $this->getClaims()?->context;
+    public function getContext() : ?object {
+        $property = $this->StandardClaimFor('context');
+        return $this->getJwtRProperty($property);
     }
 
     public function getResourceLink() : object {
-        return $this->getClaims()?->resource_link;
+        $property = $this->StandardClaimFor('resource_link');
+        return $this->getJwtRProperty($property);
     }
 
     public function optionalResourceLinkAttribute(string $attribute) : mixed {
@@ -118,38 +131,15 @@ class Content {
         return $isExpired;
     }
 
-    public function getClaims() : Claims {
-        $claims = new Claims();
-        foreach ($this->raw_content as $key => $content){
-            if($this->isClaim($key)){
-                $name = $this->getFriendlyClaimName($key);
-                $claims->$name = $content;
-            }
-        }
-        return $claims;
-    }
-
-    private function isClaim(string $key) : bool {
-        $isClaim = (strpos($key, self::LTI_SPEC_CLAIM) !== false);
-        return $isClaim;
-    }
-
-    private function getFriendlyClaimName(string $key) : string {
-        $start = strlen(self::LTI_SPEC_CLAIM);
-        $end = strlen($key);
-        $name = substr($key, $start, $end);
-        return $name;
+    private function StandardClaimFor(string $property_name) : string {
+        return self::LTI_STANDARD_CLAIM . $property_name;
     }
 
     private function getJwtRProperty(string $property, bool $required = true) : mixed {
-        $value = null;
         if($required){
             $this->assertExist($property);
         }
-        if(isset($this->raw_content?->$property)){
-            $value = $this->raw_content->$property;
-        }
-        return $value;
+        return $this->raw_content->$property ?? null;
     }
 
     private function assertExist(string $property){
