@@ -104,10 +104,10 @@ class Launch {
         }
 
         public function syncPlatform(Content $content, Platform $platform) : Platform {
-            $platform->guid = $content->getPlatform()?->guid;
-            $platform->name = $content->getPlatform()?->name;
-            $platform->version = $content->getPlatform()?->version;
-            $platform->product_family_code = $content->getPlatform()?->product_family_code;
+            $platform->guid = $content->getPlatform()->guid ?? null;
+            $platform->name = $content->getPlatform()->name ?? null;
+            $platform->version = $content->getPlatform()->version ?? null;
+            $platform->product_family_code = $content->getPlatform()->product_family_code ?? null;
             $platform->validation_context = $content->optionalPlatformAttribute('validation_context');
             $platform->update();
             return $platform;
@@ -129,8 +129,8 @@ class Launch {
                 'family_name' => $content->getUserFamilyName(),
                 'email' => $content->getUserEmail(),
                 'picture' => $content->getUserPicture(),
-                'roles' => implode(" ", $content->getUserRoles()),
-                'person_sourceid' => $content->getLis()?->person_sourcedid,
+                'roles' => implode(";", $content->getUserRoles()),
+                'person_sourceid' => $content->getLis()->person_sourcedid ?? null,
             ];
             $conditions = ['lti_id' => $content->getUserId(), 'platform_id' => $platform_id];
             $user = User::updateOrCreate($conditions, $fields);
@@ -139,11 +139,11 @@ class Launch {
 
         public function syncContext(Content $content, int $deployment_id) : Context {
             $fields = [
-                'label' => $content->getContext()?->label,
-                'title' => $content->getContext()?->title,
-                'type' => implode(" ", $content->getContext()?->type)
+                'label' => $content->getContext()->label ?? null,
+                'title' => $content->getContext()->title  ?? null,
+                'type' => implode(";", $content->getContext()->type  ?? null)
             ];
-            $conditions = ['lti_id' => $content->getContext()?->id,'deployment_id' => $deployment_id];
+            $conditions = ['lti_id' => $content->getContext()->id  ?? null,'deployment_id' => $deployment_id];
             $context = Context::updateOrCreate($conditions, $fields);
             return $context;
         }
@@ -151,10 +151,10 @@ class Launch {
         public function SyncResourceLink(Content $content, Context $context) : ResourceLink {
             $fields = [
                 'description' => $content->optionalResourceLinkAttribute('description'),
-                'title' => $content->getResourceLink()?->title,
+                'title' => $content->getResourceLink()->title ?? null,
                 'validation_context' => $content->optionalResourceLinkAttribute('validation_context')
             ];
-            $lti_id = $content->getResourceLink()?->id;
+            $lti_id = $content->getResourceLink()->id  ?? null;
             $conditions = ['lti_id' => $lti_id, 'context_id' => $context->id];
             $resourceLink = ResourceLink::updateOrCreate($conditions, $fields);
             return $resourceLink;

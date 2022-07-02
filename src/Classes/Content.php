@@ -97,7 +97,7 @@ class Content {
 
     public function getDeepLinkingSettings() : ?object {
         $key = static::LTI_DEEP_LINKING_SPEC_CLAIM."deep_linking_settings";
-        return $this->raw_content?->$key;
+        return $this->raw_content->$key ?? null;
     }
 
     public function getMessageType() : string {
@@ -106,7 +106,7 @@ class Content {
     }
 
     public function optionalPlatformAttribute(string $attribute) : mixed {
-        return $this->getPlatform()?->$attribute;
+        return $this->getPlatform()->$attribute ?? null;
     }
 
     public function getContext() : ?object {
@@ -120,7 +120,7 @@ class Content {
     }
 
     public function optionalResourceLinkAttribute(string $attribute) : mixed {
-        return $this->getResourceLink()?->$attribute;
+        return $this->getResourceLink()->$attribute ?? null;
     }
 
     public function tokenIsExpired() : bool {
