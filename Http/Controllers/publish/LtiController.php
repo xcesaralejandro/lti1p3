@@ -10,8 +10,9 @@ class LtiController extends Lti1p3Controller {
     /*
 
         Important!
-        Consider that an LTI can be added on multiple sides, sometimes your LTI can receive LtiResourceLinkRequest and LtiDeepLinkingRequest triggers
-    
+        Consider that an LTI can be added on multiple sides, 
+        sometimes your LTI can receive LtiResourceLinkRequest and LtiDeepLinkingRequest triggers
+
     */
 
     public function onResourceLinkRequest(string $instance_id) : mixed {
