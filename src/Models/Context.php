@@ -2,8 +2,10 @@
 
 namespace xcesaralejandro\lti1p3\Models;
 
+use App\Models\Deployment;
 use App\Models\Platform;
 use App\Models\ResourceLink;
+use App\Models\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

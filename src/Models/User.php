@@ -3,6 +3,7 @@
 namespace xcesaralejandro\lti1p3\Models;
 
 use App\Models\Platform;
+use App\Models\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,19 +28,15 @@ class User extends Authenticatable
     }
 
     public function roles() : HasMany {
-        return $this->hasMany(Role::class, 'role_id', 'id');
+        return $this->hasMany(UserRole::class, 'user_id', 'id');
     }
 
     public function isToolAdmin() : bool {
-        return $this->hasRole('administrator', UserRole::LOCAL);
-    }
-
-    public function hasRole(string $role_name, string $creation_context) : bool {
-        $finded_roles_count = UserRole::where([['creation_context', '=', $creation_context], ['name', '=',$role_name], ['user_id', '=', $this->id]])->count(); 
+        $finded_roles_count = UserRole::where([
+            ['creation_context', '=', UserRole::LOCAL], 
+            ['name', '=', 'administrator'], 
+            ['user_id', '=', $this->id]
+        ])->count();
         return $finded_roles_count > 0;
-    }
-
-    private function has(string $column) : bool {
-        return !empty($column);
     }
 }

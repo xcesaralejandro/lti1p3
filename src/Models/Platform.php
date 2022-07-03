@@ -3,6 +3,7 @@
 namespace xcesaralejandro\lti1p3\Models;
 
 use App\Models\Context;
+use App\Models\Deployment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

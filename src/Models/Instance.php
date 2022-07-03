@@ -2,7 +2,11 @@
 
 namespace xcesaralejandro\lti1p3\Models;
 
+use App\Models\Context;
+use App\Models\Deployment;
 use App\Models\Platform;
+use App\Models\ResourceLink;
+use App\Models\User;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

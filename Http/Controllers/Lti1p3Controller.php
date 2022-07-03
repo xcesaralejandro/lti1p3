@@ -1,19 +1,10 @@
 <?php 
 namespace xcesaralejandro\lti1p3\Http\Controllers;
 
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use xcesaralejandro\lti1p3\Facades\JWT;
 use xcesaralejandro\lti1p3\Facades\Launch;
 use xcesaralejandro\lti1p3\Http\Requests\LaunchRequest;
-use xcesaralejandro\lti1p3\Models\Nonce;
-use App\Models\User;
-use GuzzleHttp\Psr7\Request;
-use Ramsey\Uuid\Uuid;
 use xcesaralejandro\lti1p3\Classes\Message;
-use xcesaralejandro\lti1p3\DataStructure\DeepLinkingInstance;
-use xcesaralejandro\lti1p3\DataStructure\ResourceLinkInstance;
 use App\Models\Instance;
 
 class Lti1p3Controller {
