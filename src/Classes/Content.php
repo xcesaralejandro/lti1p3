@@ -6,7 +6,9 @@ use xcesaralejandro\lti1p3\DataStructure\Claims;
 class Content {
 
     const LTI_STANDARD_CLAIM = 'https://purl.imsglobal.org/spec/lti/claim/';
-    const LTI_DEEP_LINKING_SPEC_CLAIM = 'https://purl.imsglobal.org/spec/lti-dl/claim/';
+    const LTI_DEEP_LINKING_CLAIM = 'https://purl.imsglobal.org/spec/lti-dl/claim/';
+    const LTI_NRPS_CLAIM = 'https://purl.imsglobal.org/spec/lti-nrps/claim/';
+
     private object $raw_content;
 
     function __construct(object $raw_content){
@@ -96,7 +98,7 @@ class Content {
     }
 
     public function getDeepLinkingSettings() : ?object {
-        $key = static::LTI_DEEP_LINKING_SPEC_CLAIM."deep_linking_settings";
+        $key = static::LTI_DEEP_LINKING_CLAIM."deep_linking_settings";
         return $this->raw_content->$key ?? null;
     }
 
@@ -116,6 +118,11 @@ class Content {
 
     public function getResourceLink() : object {
         $property = $this->StandardClaimFor('resource_link');
+        return $this->getJwtRProperty($property);
+    }
+
+    public function getNrpsServiceConfig() : object {
+        $property = static::LTI_NRPS_CLAIM . "namesroleservice";
         return $this->getJwtRProperty($property);
     }
 

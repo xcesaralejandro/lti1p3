@@ -6,10 +6,12 @@ use xcesaralejandro\lti1p3\Facades\Launch;
 use xcesaralejandro\lti1p3\Http\Requests\LaunchRequest;
 use xcesaralejandro\lti1p3\Classes\Message;
 use App\Models\Instance;
+use xcesaralejandro\lti1p3\Classes\Nrps;
 
 class Lti1p3Controller {
     public function onResourceLinkRequest(string $instance_id) : mixed {
         $instance = Instance::RecoveryFromId($instance_id);
+        dd((new Nrps())->listAll($instance));
         return View('lti1p3::examples.resource_link_request_launched')->with(['instance' => $instance, 'instance_id' => $instance_id]);
     }
 
