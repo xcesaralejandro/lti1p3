@@ -18,3 +18,16 @@ body{
 .bubble-disable{
     color: lightgray;
 }
+
+.small-description{
+    font-size: .6rem;
+    color: gray;
+}
+
+.platform-card, .deployment-card{
+    font-size: .9rem;
+}
+
+.main-content{
+    margin-top: 59px;
+}

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LtiController;
 use xcesaralejandro\lti1p3\Http\Controllers\{
     AuthController,
+    DeploymentsController,
+    ExamplesController,
     PlatformsController
 };
 
@@ -24,4 +26,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web','auth']], function () {
     Route::resource('/platforms', PlatformsController::class, ['as' => 'lti1p3']);
+    Route::resource('platforms/{platform_id}/deployments', DeploymentsController::class, ['as' => 'lti1p3']);
+});
+
+Route::group(['prefix' => 'example', 'middleware' => 'lti_instance_recovery'], function () {
+    Route::post('/deeplinking', [ExamplesController::class, 'SendDeepLinkingMessage'])->name('deep_linking.example');
+    Route::get('/deeplinking/view', [ExamplesController::class, 'launchDeepLinkingUrl'])->name('deep_linking.example.view');
 });

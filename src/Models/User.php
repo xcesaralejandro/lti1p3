@@ -3,33 +3,40 @@
 namespace xcesaralejandro\lti1p3\Models;
 
 use App\Models\Platform;
+use App\Models\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use xcesaralejandro\lti1p3\Traits\LtiRolesManager;
 
 class User extends Authenticatable
 {
-    use LtiRolesManager;
+    use LtiRolesManager, SoftDeletes;
 
     protected $table = 'users';
 
     protected $fillable = ['platform_id','lti_id', 'password', 'name', 'given_name', 'family_name',
-    'email', 'picture', 'roles', 'person_sourceid', 'creation_method', 'app_role'];
+    'email', 'picture', 'person_sourceid', 'creation_method'];
     protected $hidden = ['password', 'remember_token'];
 
     public function platform() : BelongsTo {
         return $this->belongsTo(Platform::class, 'platform_id');
     }
 
-    public function isToolAdmin() : bool {
-        return $this->app_role == 'ADMIN' && $this->has('email') && $this->has('password');
+    public function roles() : HasMany {
+        return $this->hasMany(UserRole::class, 'user_id', 'id');
     }
 
-    private function has(string $column) : bool {
-        return !empty($column);
+    public function isToolAdmin() : bool {
+        $finded_roles_count = UserRole::where([
+            ['creation_context', '=', UserRole::LOCAL], 
+            ['name', '=', 'administrator'], 
+            ['user_id', '=', $this->id]
+        ])->count();
+        return $finded_roles_count > 0;
     }
 }

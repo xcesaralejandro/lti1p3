@@ -1,11 +1,16 @@
 <?php 
 namespace xcesaralejandro\lti1p3\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use xcesaralejandro\lti1p3\Classes\JWT;
 use xcesaralejandro\lti1p3\Classes\Launch;
 use xcesaralejandro\lti1p3\Classes\Lti;
+<<<<<<< HEAD
 use xcesaralejandro\lti1p3\Classes\Nrps;
+=======
+use xcesaralejandro\lti1p3\Classes\Message;
+>>>>>>> main
 
 class Lti1p3ServiceProvider extends ServiceProvider {
 
@@ -15,6 +20,9 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         $this->loadRoutesFrom($this->packageBasePath('routes/web.php'));
 
         $this->loadRoutesFrom($this->packageBasePath('routes/api.php'));
+
+        $router = $this->app['router'];
+        $router->aliasMiddleware('lti_instance_recovery', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\InstanceRecovery::class');
 
         $this->loadTranslationsFrom($this->packageBasePath('resources/lang'), 'lti1p3');
 
@@ -60,6 +68,7 @@ class Lti1p3ServiceProvider extends ServiceProvider {
             return new JWT();
         });
 
+<<<<<<< HEAD
         $this->app->bind('lti', function(){
             return new Lti();
         });
@@ -68,8 +77,15 @@ class Lti1p3ServiceProvider extends ServiceProvider {
             return new Nrps();
         });
         
+=======
+>>>>>>> main
         $this->mergeConfigFrom($this->packageBasePath('config/lti1p3.php'), "lti1p3");
         $this->loadMigrationsFrom($this->packageBasePath('database/migrations'));
+
+        Blade::directive('addinstance', function ($instance_id) {
+            return '<input type="hidden" name="lti1p3_instance_id" value="'."<?php echo $instance_id; ?>".'" />';
+        });
+
     }
 
     protected function packageBasePath($uri){

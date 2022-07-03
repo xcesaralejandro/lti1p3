@@ -23,12 +23,11 @@ class CreateUsersTable extends Migration
             $table->string('family_name')->nullable();
             $table->string('email')->nullable();
             $table->string('picture')->nullable();
-            $table->text('roles')->nullable();
             $table->string('person_sourceid')->nullable();
             $table->enum('creation_method',['LTI','MANUAL'])->default('LTI');
-            $table->enum('app_role',['ADMIN','DEFAULT'])->default('DEFAULT');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
         });
     }

@@ -4,8 +4,6 @@
 
 return [
 
-    'ENABLE_AUTH' => true,
-    
     'VERIFY_HTTPS_CERTIFICATE' => false,
 
     'SIGNATURE_METHOD' => 'RS256',
@@ -17,7 +15,7 @@ return [
     Insert private key here
     -----END RSA PRIVATE KEY-----
     EOD,
-    
+
     'LTI_ADMIN_ROLES_SPEC' => [
         'Administrator', 
         'Developer',

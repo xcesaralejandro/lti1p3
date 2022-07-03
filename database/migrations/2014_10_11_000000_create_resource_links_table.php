@@ -21,6 +21,7 @@ class CreateResourceLinksTable extends Migration
             $table->string('title')->nullable();
             $table->string('validation_context')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('context_id')->references('id')->on('contexts')->onDelete('cascade');
         });
     }

@@ -2,16 +2,15 @@
 namespace xcesaralejandro\lti1p3\DataStructure;
 use App\Models\Context;
 use App\Models\Platform;
-use App\Models\ResourceLink;
 use App\Models\User;
-use xcesaralejandro\lti1p3\Classes\Content;
+use xcesaralejandro\lti1p3\Classes\Message;
+use App\Models\Deployment;
 
-class Instance 
+class DeepLinkingInstance 
 {
     public Platform $platform;
+    public Deployment $deployment;
     public Context $context;
-    public ResourceLink $resourceLink;
     public User $user;
-    public Content $content;
-    public string $jwt;
+    public Message $message;
 }

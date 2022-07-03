@@ -1,13 +1,17 @@
 @extends('lti1p3::templates.app')
 @section('content')
-    <h1 class="text-center mt-5">LTI 1.3 - Current instance</h1>
+    <h1 class="text-center mt-5">LTI 1.3</h1>
+    <h6 class="text-center">Launched as Resource Link Request</h6>
     <hr/>
     @php
+    unset($instance->platform->deployments);
     $cards = [
       'User' => $instance->user->toArray(),
-      'Resource' => $instance->resourceLink->toArray(),
+      'Resource link' => $instance->resource_link->toArray(),
       'Context' => $instance->context->toArray(),
-      'Platform' => $instance->platform->toArray()];
+      'Deployment' => $instance->deployment->toArray(),
+      'Platform' => $instance->platform->toArray()
+    ];
     @endphp
     <div class="row">
       @foreach($cards as $name => $card)
