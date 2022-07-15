@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use xcesaralejandro\lti1p3\DataStructure\Instance;
 use xcesaralejandro\lti1p3\Http\Controllers\Lti1p3Controller;
 
 class LtiController extends Lti1p3Controller {
