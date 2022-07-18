@@ -108,7 +108,7 @@ class Launch {
             $platform->name = $content->getPlatform()->name ?? null;
             $platform->version = $content->getPlatform()->version ?? null;
             $platform->product_family_code = $content->getPlatform()->product_family_code ?? null;
-            $platform->validation_context = $content->optionalPlatformAttribute('validation_context');
+            $platform->validation_context = $content->getPlatform()->validation_context ?? null;
             $platform->update();
             return $platform;
         }
@@ -150,9 +150,9 @@ class Launch {
 
         public function SyncResourceLink(Content $content, Context $context) : ResourceLink {
             $fields = [
-                'description' => $content->optionalResourceLinkAttribute('description'),
+                'description' => $content->getResourceLink()->description ?? null,
                 'title' => $content->getResourceLink()->title ?? null,
-                'validation_context' => $content->optionalResourceLinkAttribute('validation_context')
+                'validation_context' => $content->getResourceLink()->validation_context ?? null
             ];
             $lti_id = $content->getResourceLink()->id  ?? null;
             $conditions = ['lti_id' => $lti_id, 'context_id' => $context->id];

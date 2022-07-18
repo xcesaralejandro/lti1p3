@@ -105,10 +105,6 @@ class Content {
         return $this->getJwtRProperty($property);
     }
 
-    public function optionalPlatformAttribute(string $attribute) : mixed {
-        return $this->getPlatform()->$attribute ?? null;
-    }
-
     public function getContext() : ?object {
         $property = $this->StandardClaimFor('context');
         return $this->getJwtRProperty($property);
@@ -119,8 +115,29 @@ class Content {
         return $this->getJwtRProperty($property);
     }
 
-    public function optionalResourceLinkAttribute(string $attribute) : mixed {
-        return $this->getResourceLink()->$attribute ?? null;
+    public function getAllCustomVars() : ?object {
+        $property = $this->StandardClaimFor('custom');
+        $vars = $this->getJwtRProperty($property) ?? null;
+        return $vars;
+    }
+
+    public function getCustomVar(string $name) : mixed {
+        $vars = $this->getAllCustomVars();
+        return $vars->{$name} ?? null;
+    }
+
+    public function hasCustomVar(string $name) : bool {
+        $vars = $this->getAllCustomVars();
+        return isset($vars->{$name});
+    }
+
+    public function getCustomVarOrFail(string $name) : mixed {
+        if($this->hasCustomVar($name)){
+            return $this->getCustomVar($name);
+        }else{
+            $message = "Custom var {$name} is not passed from the LMS. Please review the tool settings within the LMS.";
+            throw new \Exception($message);
+        }
     }
 
     public function tokenIsExpired() : bool {

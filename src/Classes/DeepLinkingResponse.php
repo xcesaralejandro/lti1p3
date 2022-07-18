@@ -69,7 +69,7 @@ class DeepLinkingResponse {
     }
 
     private function getDeepLinkingSettings() : ?object {
-        $content = Message::decodeJWTMessage($this->instance->platform, $this->instance->initial_message);
+        $content = Message::decodeJWT($this->instance->platform, $this->instance->initial_message);
         return $content->getDeepLinkingSettings();
     }
 
