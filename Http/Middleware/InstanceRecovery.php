@@ -9,8 +9,11 @@ use App\Models\Instance;
 class InstanceRecovery
 {
     public function handle($request, Closure $next){
-        if(isset($request->lti1p3_instance_id)){
-            $instance = Instance::RecoveryFromId($request->lti1p3_instance_id);
+        $from_params = $request->lti1p3_instance_id ?? null;
+        $from_headers = $request->header('lti1p3-instance-id');
+        $instance_id = $from_headers ?? $from_params;
+        if(!empty($instance_id)){
+            $instance = Instance::RecoveryFromId($instance_id);
             $request->merge(['lti1p3_instance' => $instance]);
         }
         return $next($request);
