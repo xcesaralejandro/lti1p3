@@ -1,15 +1,17 @@
-<?php 
+<?php
 // You can generate a private key here (2048 bit recommended):
 // https://travistidwell.com/jsencrypt/demo/
 
 return [
 
+    'INSTANCE_LIFE_TIME' => null, // null for unlimited duration or number of seconds.
+
     'VERIFY_HTTPS_CERTIFICATE' => false,
 
     'SIGNATURE_METHOD' => 'RS256',
-    
-    'KID' => 'default_kid', 
-    
+
+    'KID' => 'default_kid',
+
     'PRIVATE_KEY' => <<< EOD
     -----BEGIN RSA PRIVATE KEY-----
     Insert private key here
@@ -17,19 +19,19 @@ return [
     EOD,
 
     'LTI_ADMIN_ROLES_SPEC' => [
-        'Administrator', 
+        'Administrator',
         'Developer',
         'ExternalDeveloper',
-        'ExternalSupport', 
-        'ExternalSystemAdministrator', 
-        'Support', 
+        'ExternalSupport',
+        'ExternalSystemAdministrator',
+        'Support',
         'SystemAdministrator'
     ],
 
     'LTI_CONTENT_DEVELOPER_ROLES_SPEC' => [
-        'ContentDeveloper', 
+        'ContentDeveloper',
         'ContentExpert',
-        'ExternalContentExpert', 
+        'ExternalContentExpert',
         'Librarian'
     ],
 
@@ -42,10 +44,10 @@ return [
         'SecondaryInstructor',
         'TeachingAssistant',
         'TeachingAssistantGroup',
-        'TeachingAssistantOffering', 
+        'TeachingAssistantOffering',
         'TeachingAssistantSection',
-        'TeachingAssistantSectionAssociation', 
-        'TeachingAssistantTemplate', 
+        'TeachingAssistantSectionAssociation',
+        'TeachingAssistantTemplate',
         'Instructor'
     ],
 
@@ -59,10 +61,10 @@ return [
     ],
 
     'LTI_MANAGER_ROLES_SPEC' => [
-        'AreaManager', 
-        'CourseCoordinator', 
+        'AreaManager',
+        'CourseCoordinator',
         'ExternalObserver',
-        'Manager', 
+        'Manager',
         'Observer'
     ],
 

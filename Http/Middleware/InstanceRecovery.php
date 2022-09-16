@@ -1,7 +1,7 @@
 <?php
- 
+
 namespace xcesaralejandro\lti1p3\Http\Middleware;
- 
+
 use Closure;
 use xcesaralejandro\lti1p3\Facades\Launch;
 use App\Models\Instance;
@@ -14,6 +14,9 @@ class InstanceRecovery
         $instance_id = $from_headers ?? $from_params;
         if(!empty($instance_id)){
             $instance = Instance::RecoveryFromId($instance_id);
+            if($instance->isExpired()){
+                abort(401);
+            }
             $request->merge(['lti1p3_instance' => $instance]);
         }
         return $next($request);
