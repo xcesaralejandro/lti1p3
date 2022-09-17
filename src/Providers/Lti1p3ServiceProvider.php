@@ -23,7 +23,7 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         $this->loadTranslationsFrom($this->packageBasePath('resources/lang'), 'lti1p3');
 
         $this->publishes([
-            $this->packageBasePath('resources/views') => resource_path("/views/vendor/xcesaralejandro/lti1p3")
+            $this->packageBasePath('resources/views') => resource_path("/views/vendor/lti1p3")
         ], 'xcesaralejandro-lti1p3-views');
         
         $this->publishes([
@@ -39,7 +39,7 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         ], 'xcesaralejandro-lti1p3-assets');
 
         $this->publishes([
-            $this->packageBasePath('resources/lang') => resource_path('lang/vendor/xcesaralejandro/lti1p3')
+            $this->packageBasePath('resources/lang') => resource_path('lang/vendor/lti1p3')
         ], 'xcesaralejandro-lti1p3-translations');
 
         $this->publishes([
