@@ -8,7 +8,7 @@ class Content {
     const LTI_STANDARD_CLAIM = 'https://purl.imsglobal.org/spec/lti/claim/';
     const LTI_DEEP_LINKING_SPEC_CLAIM = 'https://purl.imsglobal.org/spec/lti-dl/claim/';
     private object $raw_content;
-    protected $leeway = 120;
+    protected $leeway = 240;
 
     function __construct(object $raw_content){
         $this->raw_content = $raw_content;
@@ -143,10 +143,8 @@ class Content {
 
     public function tokenIsExpired() : bool {
         $now = Carbon::now('UTC')->timestamp;
-        $expiration = $this->raw_content->exp;
-        $lifetime = ($expiration + $this->leeway) - $now;
-        $isExpired = $lifetime < 0;
-        return $isExpired;
+        $expire_at = $this->raw_content->exp + $this->leeway;
+        return $now > $expire_at;
     }
 
     private function StandardClaimFor(string $property_name) : string {
