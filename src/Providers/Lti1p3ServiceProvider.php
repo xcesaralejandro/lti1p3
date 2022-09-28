@@ -68,7 +68,7 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         $this->loadMigrationsFrom($this->packageBasePath('database/migrations'));
 
         Blade::directive('addinstance', function ($instance_id) {
-            return '<input type="hidden" name="lti1p3_instance_id" value="'."<?php echo $instance_id; ?>".'" />';
+            return '<input type="hidden" name="lti1p3-instance-id" value="'."<?php echo $instance_id; ?>".'" />';
         });
 
     }
