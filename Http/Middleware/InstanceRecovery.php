@@ -5,6 +5,7 @@ namespace xcesaralejandro\lti1p3\Http\Middleware;
 use Closure;
 use App\Models\Instance;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class InstanceRecovery
 {
@@ -22,6 +23,7 @@ class InstanceRecovery
                 abort(401);
             }
             $request->merge(['lti1p3_instance' => $instance]);
+            Auth::login($request->lti1p3_instance->user, true);
         }else{
             abort(401);
         }
