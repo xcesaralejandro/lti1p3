@@ -8,7 +8,7 @@
     <link href="{{asset('css/lti1p3_mdb.min.css')}}" rel="stylesheet" type="text/css"/>
     @stack('css')
     <link href="{{asset('css/lti1p3_styles.css')}}" rel="stylesheet" type="text/css"/>
-    <title>{{trans('lti1p3::strings.app_name')}}</title>
+    <title>{{trans('lti1p3::lti1p3.app_name')}}</title>
 </head>
 <body>
     <header>

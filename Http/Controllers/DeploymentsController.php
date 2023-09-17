@@ -23,7 +23,7 @@ class DeploymentsController {
         $record = $request->only(['lti_id', 'target_link_uri']);
         $record['lti1p3_platform_id'] = $platform->id;
         LtiDeployment::create($record);
-        return redirect()->route('lti1p3.deployments.index', ['lti1p3_platform_id' => $platform->id]);
+        return redirect()->route('lti1p3.deployments.index', ['platform_id' => $platform->id]);
     }
 
     public function show($id) : mixed {
@@ -41,6 +41,6 @@ class DeploymentsController {
     public function destroy(int $platform_id, int $deployment_id) : mixed {
         $deployment = LtiDeployment::findOrFail($deployment_id);
         $deployment->delete();
-        return redirect()->route('lti1p3.deployments.index', ['lti1p3_platform_id' => $platform_id]);
+        return redirect()->route('lti1p3.deployments.index', ['platform_id' => $platform_id]);
     }
 }

@@ -40,7 +40,7 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         ], 'xcesaralejandro-lti1p3-assets');
 
         $this->publishes([
-            $this->packageBasePath('resources/lang') => resource_path('lang/vendor/lti1p3')
+            $this->packageBasePath('lang') => lang_path('vendor/lti1p3')
         ], 'xcesaralejandro-lti1p3-translations');
 
         $this->publishes([

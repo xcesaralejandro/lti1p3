@@ -4,17 +4,17 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="{{route('lti1p3.platforms.index')}}">
-              {{trans('lti1p3::strings.navbar_list_platforms')}}
+              {{trans('lti1p3::lti1p3.navbar_list_platforms')}}
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{route('lti1p3.platforms.create')}}">
-              {{trans('lti1p3::strings.navbar_add_platform')}}
+              {{trans('lti1p3::lti1p3.navbar_add_platform')}}
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{route('lti1p3.auth.logout')}}">
-            {{trans('lti1p3::strings.navbar_logout')}}
+            {{trans('lti1p3::lti1p3.navbar_logout')}}
           </a>
         </li>
       </ul>

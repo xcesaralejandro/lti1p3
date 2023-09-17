@@ -10,11 +10,11 @@
     @if($platforms->isEmpty())
       <div class="col-md-8 offset-md-2 bg-white border p-5">
         <h3 class="text-center">
-          {{trans('lti1p3::strings.platform_not_found')}}
+          {{trans('lti1p3::lti1p3.platform_not_found')}}
         </h3>
         <div class="d-flex justify-content-center pt-2">
           <a href="{{route('lti1p3.platforms.create')}}" class="btn btn-outline-primary">
-            {{trans('lti1p3::strings.platform_add_new_button')}}
+            {{trans('lti1p3::lti1p3.platform_add_new_button')}}
           </a>
         </div>
       </div>
@@ -36,7 +36,7 @@
                 @csrf
                 <button type="submit" class="p-0 m-0 bg-white border-0"
                   onclick="return confirm(
-                    '{{trans('lti1p3::strings.platform_confirm_delete', 
+                    '{{trans('lti1p3::lti1p3.platform_confirm_delete', 
                       ['name' => $platform->name])}}')">
                   <i class="material-icons">delete</i>
                 </button>
@@ -47,13 +47,13 @@
         <table>
           <tr>
             <th class="font-weight-normal">
-              {{trans('lti1p3::strings.platform_issuer_id_label')}}:
+              {{trans('lti1p3::lti1p3.platform_issuer_id_label')}}:
             </th>
             <td class="font-weight-light">{{$platform->issuer_id}}</td>
           </tr>
           <tr>
             <th class="font-weight-normal">
-              {{trans('lti1p3::strings.platform_client_id_label')}}:
+              {{trans('lti1p3::lti1p3.platform_client_id_label')}}:
             </th>
             <td class="font-weight-light">
               {{$platform->client_id}}
@@ -61,7 +61,7 @@
           </tr>
           <tr>
             <th class="font-weight-normal">
-              {{trans('lti1p3::strings.platform_authorization_url_label')}}:
+              {{trans('lti1p3::lti1p3.platform_authorization_url_label')}}:
             </th>
             <td class="font-weight-light">
               {{$platform->authorization_url}}
@@ -69,7 +69,7 @@
           </tr>
           <tr>
             <th class="font-weight-normal">
-              {{trans('lti1p3::strings.platform_authentication_url_label')}}:
+              {{trans('lti1p3::lti1p3.platform_authentication_url_label')}}:
             </th>
             <td class="font-weight-light">
               {{$platform->authentication_url}}
@@ -77,7 +77,7 @@
           </tr>
           <tr>
             <th class="font-weight-normal">
-              {{trans('lti1p3::strings.platform_lti_advantage_token_url_label')}}:
+              {{trans('lti1p3::lti1p3.platform_lti_advantage_token_url_label')}}:
             </th>
             <td class="font-weight-light">
               {{$platform->lti_advantage_token_url}}
@@ -85,7 +85,7 @@
           </tr>
           <tr>
             <th class="font-weight-normal">
-              {{trans('lti1p3::strings.platform_json_webkey_url_label')}}:
+              {{trans('lti1p3::lti1p3.platform_json_webkey_url_label')}}:
             </th>
             <td class="font-weight-light">
               {{$platform->json_webkey_url}}
@@ -93,7 +93,7 @@
           </tr>
           <tr>
             <th class="font-weight-normal">
-              {{trans('lti1p3::strings.platform_signature_method_label')}}:
+              {{trans('lti1p3::lti1p3.platform_signature_method_label')}}:
             </th>
             <td class="font-weight-light">
               {{$platform->signature_method}}
@@ -101,19 +101,19 @@
           </tr>
           <tr>
             <th class="font-weight-normal">
-              {{trans('lti1p3::strings.platform_deployment_id_autoregister_label')}}:
+              {{trans('lti1p3::lti1p3.platform_deployment_id_autoregister_label')}}:
             </th>
             <td class="font-weight-light">
               {{
                 $platform->deployment_id_autoregister ? 
-                trans('lti1p3::strings.auto_register_deployments_enable') : 
-                trans('lti1p3::strings.auto_register_deployments_disable')
+                trans('lti1p3::lti1p3.auto_register_deployments_enable') : 
+                trans('lti1p3::lti1p3.auto_register_deployments_disable')
               }}
             </td>
           </tr>
           <tr>
             <th class="font-weight-normal">
-              {{trans('lti1p3::strings.platform_deployments_count_label')}}:
+              {{trans('lti1p3::lti1p3.platform_deployments_count_label')}}:
             </th>
             <td class="font-weight-light">
                {{$platform->deployments_count}}
@@ -122,12 +122,12 @@
         </table>
         <footer>
           <div class="d-flex justify-content-center">
-            <a href="{{route('lti1p3.deployments.index', ['lti1p3_platform_id' => $platform->id])}}" type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
-              {{trans('lti1p3::strings.platform_add_new_deployment_button')}}
+            <a href="{{route('lti1p3.deployments.index', ['platform_id' => $platform->id])}}" type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
+              {{trans('lti1p3::lti1p3.platform_add_new_deployment_button')}}
             </a>
           </div>
           <span class="text-caption font-italic d-flex justify-content-end pt-2">
-            {{trans('lti1p3::strings.created_at_label', ['date' => $platform->created_at])}}
+            {{trans('lti1p3::lti1p3.created_at_label', ['date' => $platform->created_at])}}
           </span>
         </footer>
       </article>
