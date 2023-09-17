@@ -18,16 +18,16 @@ class Content {
         return $this->getJwtRProperty('sub');
     }
 
-    public function getUserName() : string {
-        return $this->getJwtRProperty('name');
+    public function getUserName() : ?string {
+        return $this->getJwtRProperty('name', $required = false);
     }
 
-    public function getUserGivenName() : string {
-        return $this->getJwtRProperty('given_name');
+    public function getUserGivenName() : ?string{
+        return $this->getJwtRProperty('given_name', $required = false);
     }
 
-    public function getUserFamilyName() : string {
-        return $this->getJwtRProperty('family_name');
+    public function getUserFamilyName() : ?string{
+        return $this->getJwtRProperty('family_name', $required = false);
     }
 
     public function getUserEmail() : ?string {
@@ -45,7 +45,7 @@ class Content {
 
     public function getLis() : ?object {
         $property = $this->StandardClaimFor('lis');
-        return $this->getJwtRProperty($property);
+        return $this->getJwtRProperty($property, false);
     }
 
     public function getRawJwt() : object {
