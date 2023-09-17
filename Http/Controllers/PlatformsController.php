@@ -4,13 +4,13 @@ namespace xcesaralejandro\lti1p3\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use xcesaralejandro\lti1p3\Http\Requests\NewPlatformRequest;
-use App\Models\Platform;
+use App\Models\LtiPlatform;
 
 class PlatformsController {
 
     public function index() : View {
         return View('lti1p3::admin.platforms.index')->with([
-            'platforms' => Platform::withCount('deployments')->get(),
+            'platforms' => LtiPlatform::withCount('deployments')->get(),
         ]);
     }
 
@@ -21,7 +21,7 @@ class PlatformsController {
     public function store(NewPlatformRequest $request) : View {
         $record = $request->all();
         $record['deployment_id_autoregister'] = isset($request->deployment_id_autoregister);
-        Platform::create($record);
+        LtiPlatform::create($record);
         return View('lti1p3::admin.platforms.create')
         ->with(['wasCreated' => true]);
     }
@@ -39,7 +39,7 @@ class PlatformsController {
     }
 
     public function destroy($id) : mixed {
-        Platform::destroy($id);
+        LtiPlatform::destroy($id);
         return redirect()->back();
     }
 }

@@ -3,7 +3,7 @@
 return [
     'app_name' => 'LTI 1.3 Template',
     'login_title' => 'Login',
-    'login_email_placeholder' => 'Email',
+    'login_username_placeholder' => 'Username',
     'login_password_placeholder' => 'Password',
     'login_remember_me' => 'Remember the session',
     'login_button' => 'sign in',

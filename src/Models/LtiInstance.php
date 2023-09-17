@@ -10,40 +10,38 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use xcesaralejandro\lti1p3\Classes\Message;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Instance extends Authenticatable
+class LtiInstance extends Authenticatable
 {
+    use SoftDeletes;
 
     protected $table = 'lti1p3_instances';
     protected $keyType = 'string';
     public $incrementing = false;
+    protected $with = ['platform', 'context', 'resource_link', 'user'];
 
-    protected $fillable = ['id', 'platform_id', 'deployment_id', 'context_id', 'resource_link_id', 'user_id', 'initial_message', 'created_at'];
+    protected $fillable = ['id', 'lti1p3_platform_id', 'lti1p3_deployment_id', 'lti1p3_context_id', 
+    'lti1p3_resource_link_id', 'lti1p3_user_id', 'initial_message', 'created_at'];
 
     public function platform() : BelongsTo {
-        return $this->belongsTo(Platform::class, 'platform_id');
+        return $this->belongsTo(LtiPlatform::class, 'platform_id');
     }
 
     public function context() : BelongsTo {
-        return $this->belongsTo(Context::class, 'context_id');
+        return $this->belongsTo(LtiContext::class, 'context_id');
     }
 
     public function deployment() : BelongsTo {
-        return $this->belongsTo(Deployment::class, 'deployment_id');
+        return $this->belongsTo(LtiDeployment::class, 'deployment_id');
     }
 
     public function resource_link() : BelongsTo {
-        return $this->belongsTo(ResourceLink::class, 'resource_link_id');
+        return $this->belongsTo(LtiResourceLink::class, 'resource_link_id');
     }
 
     public function user() : BelongsTo {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function scopeRecoveryFromId(mixed $query, string $id) : mixed {
-        return $query->where('id', $id)->with(['platform', 'context', 'resource_link', 'user'])->firstOrFail();
+        return $this->belongsTo(LtiUser::class, 'user_id');
     }
 
     public function isExpired() : bool {

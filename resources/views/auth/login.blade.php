@@ -9,9 +9,9 @@
     <form method="post" action="{{route('lti1p3.auth.attemp')}}">
       @csrf
       <div class="form-outline mb-4">
-        <input type="email" id="email" class="form-control" name="email" />
-        <label class="form-label" for="email">
-          {{trans('lti1p3::strings.login_email_placeholder')}}
+        <input type="text" id="username" class="form-control" name="username" />
+        <label class="form-label" for="username">
+          {{trans('lti1p3::strings.login_username_placeholder')}}
         </label>
       </div>
         
@@ -22,14 +22,6 @@
         </label>
       </div>
         
-      <div class="form-check">
-        <input class="form-check-input mb-4" type="checkbox" id="remember" 
-          name="remember" checked />
-        <label class="form-check-label" for="remember">
-          {{trans('lti1p3::strings.login_remember_me')}}
-        </label>
-      </div>
-
       @if($errors->any())
       <div class="alert alert-danger mt-4 py-1" role="alert">
         {{trans('lti1p3::strings.login_attemp_failed')}}

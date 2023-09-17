@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('lti1p3_users', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('platform_id')->nullable();
+            $table->foreignId('lti1p3_platform_id')->nullable();
             $table->uuid('lti_id')->index()->nullable();
             $table->string('password')->nullable();
             $table->string('name')->nullable();
@@ -24,11 +24,10 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('picture')->nullable();
             $table->string('person_sourceid')->nullable();
-            $table->enum('creation_method',['LTI','MANUAL'])->default('LTI');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
+            $table->foreign('lti1p3_platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
         });
     }
 

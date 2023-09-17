@@ -5,20 +5,19 @@ namespace xcesaralejandro\lti1p3\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\Context;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\LtiContext;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ResourceLink extends Model
+class LtiResourceLink extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $table = 'lti1p3_resource_links';
     
-    protected $fillable = ['context_id', 'lti_id', 'description', 'title', 'validation_context'];
+    protected $fillable = ['lti1p3_context_id', 'lti_id', 'description', 'title', 'validation_context'];
 
     public function context() : BelongsTo {
-        return $this->belongsTo(Context::class, 'context_id');
+        return $this->belongsTo(LtiContext::class, 'context_id');
     }
 
 }

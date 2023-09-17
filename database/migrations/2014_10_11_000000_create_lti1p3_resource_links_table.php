@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('lti1p3_resource_links', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('context_id');
+            $table->foreignId('lti1p3_context_id');
             $table->string('lti_id')->index();
             $table->text('description')->nullable();
             $table->string('title')->nullable();
             $table->string('validation_context')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('context_id')->references('id')->on('lti1p3_contexts')->onDelete('cascade');
+            $table->foreign('lti1p3_context_id')->references('id')->on('lti1p3_contexts')->onDelete('cascade');
         });
     }
 

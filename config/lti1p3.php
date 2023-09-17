@@ -3,15 +3,13 @@
 // https://travistidwell.com/jsencrypt/demo/
 
 return [
-
-    'INSTANCE_LIFE_TIME' => null, // null for unlimited duration or number of seconds.
-
-    'VERIFY_HTTPS_CERTIFICATE' => false,
+    'LTI1P3_ADMIN_USERNAME' => env('LTI1P3_ADMIN_USERNAME', 'lti1p3_admin'),
+    'LTI1P3_ADMIN_PASSWORD' => env('LTI1P3_ADMIN_PASSWORD', 'lti1p3_password'),
+    'INSTANCE_LIFE_TIME' => env('LTI1P3_INSTANCE_LIFE_TIME', null), // null for unlimited duration or number of seconds.
+    'VERIFY_HTTPS_CERTIFICATE' => env('LTI1P3_VERIFY_HTTPS_CERTIFICATE', false),
 
     'SIGNATURE_METHOD' => 'RS256',
-
     'KID' => 'default_kid',
-
     'PRIVATE_KEY' => <<< EOD
     -----BEGIN RSA PRIVATE KEY-----
     Insert private key here

@@ -19,6 +19,7 @@ class Lti1p3ServiceProvider extends ServiceProvider {
 
         $router = $this->app['router'];
         $router->aliasMiddleware('lti_instance_recovery', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\InstanceRecovery::class');
+        $router->aliasMiddleware('lti1p3_session', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\Lti1p3Session::class');
 
         $this->loadTranslationsFrom($this->packageBasePath('resources/lang'), 'lti1p3');
 
@@ -50,9 +51,6 @@ class Lti1p3ServiceProvider extends ServiceProvider {
             $this->packageBasePath('src/Models/publish') => base_path('app/Models')
         ], 'xcesaralejandro-lti1p3-models');
 
-        $this->publishes([
-            $this->packageBasePath('database/seeders') => database_path('seeders')
-        ], 'xcesaralejandro-lti1p3-seeder');
     }
 
     public function register(){

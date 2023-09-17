@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id('id');
             $table->string('lti_id');
             $table->enum('creation_method', ['AUTOREGISTER', 'MANUAL'])->default('MANUAL');
-            $table->foreignId('platform_id');
+            $table->foreignId('lti1p3_platform_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
+            $table->foreign('lti1p3_platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
         });
     }
 

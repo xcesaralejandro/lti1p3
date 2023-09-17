@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserRole extends Model
+class LtiUserRole extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -18,13 +18,13 @@ class UserRole extends Model
 
     protected $table = 'lti1p3_user_roles';
 
-    protected $fillable = ['lti_context_id', 'user_id','name', 'creation_context'];
+    protected $fillable = ['lti1p3_context_id', 'lti1p3_user_id','name', 'creation_context'];
 
     public function context() : BelongsTo {
-        return $this->belongsTo(Context::class, 'lti_context_id');
+        return $this->belongsTo(LtiContext::class, 'lti1p3_context_id');
     }
 
     public function user () : BelongsTo {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(LtiUser::class, 'lti1p3_user_id');
     }
 }

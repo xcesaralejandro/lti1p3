@@ -2,18 +2,18 @@
 
 namespace xcesaralejandro\lti1p3\Models;
 
-use App\Models\Platform;
+use App\Models\LtiPlatform;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Ramsey\Uuid\Uuid;
 
-class Nonce extends Model
+class LtiNonce extends Model
 {
     use HasFactory;
 
     protected $table = 'lti1p3_nonces';
-    protected $fillable = ['value', 'platform_id'];
+    protected $fillable = ['value', 'lti1p3_platform_id'];
 
     protected static function boot()
     {
@@ -23,9 +23,8 @@ class Nonce extends Model
         });
     }
 
-
     public function platform() : BelongsTo {
-        return $this->belongsTo(Platform::class, 'platform_id');
+        return $this->belongsTo(LtiPlatform::class, 'lti1p3_platform_id');
     }
 
     public function assertMatchWith(string $nonce) : Void {

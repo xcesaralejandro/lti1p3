@@ -2,18 +2,17 @@
 
 namespace xcesaralejandro\lti1p3\Models;
 
-use App\Models\Context;
-use App\Models\Deployment;
-use App\Models\User;
+use App\Models\LtiContext;
+use App\Models\LtiDeployment;
+use App\Models\LtiUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\hasMany;
 use GuzzleHttp\Client;
 use \Firebase\JWT\JWK;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Log;
 
-class Platform extends Model
+class LtiPlatform extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -24,19 +23,19 @@ class Platform extends Model
     'product_family_code', 'validation_context', 'guid', 'name', 'lti_advantage_token_url'];
 
     public function users() : HasMany {
-        return $this->hasMany(User::class, 'platform_id', 'id');
+        return $this->hasMany(LtiUser::class, 'lti1p3_platform_id', 'id');
     }
 
     public function contexts() : HasMany {
-        return $this->hasMany(Context::class, 'platform_id', 'id');
+        return $this->hasMany(LtiUserContext::class, 'lti1p3_platform_id', 'id');
     }
 
     public function nonces() : HasMany {
-        return $this->hasMany(Nonce::class, 'platform_id', 'id');
+        return $this->hasMany(LtiNonce::class, 'lti1p3_platform_id', 'id');
     }
 
     public function deployments() : HasMany {
-        return $this->hasMany(Deployment::class, 'platform_id', 'id')->orderBy('id', 'desc');
+        return $this->hasMany(LtiDeployment::class, 'lti1p3_platform_id', 'id')->orderBy('id', 'desc');
     }
 
     public function getPublicJwk() : array {

@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('lti1p3_contexts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('deployment_id');
+            $table->foreignId('lti1p3_deployment_id');
             $table->string('lti_id')->index();
             $table->string('label')->nullable();
             $table->string('title')->nullable();
             $table->text('type')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('deployment_id')->references('id')->on('lti1p3_deployments')->onDelete('cascade');
+            $table->foreign('lti1p3_deployment_id')->references('id')->on('lti1p3_deployments')->onDelete('cascade');
         });
     }
 

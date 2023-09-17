@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('lti1p3_nonces', function (Blueprint $table) {
             $table->id();
             $table->uuid('value')->unique();
-            $table->foreignId('platform_id');
+            $table->foreignId('lti1p3_platform_id');
             $table->timestamps();
-            $table->foreign('platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
+            $table->foreign('lti1p3_platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
         });
     }
 
