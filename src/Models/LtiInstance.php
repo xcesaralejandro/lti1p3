@@ -4,6 +4,7 @@ namespace xcesaralejandro\lti1p3\Models;
 
 use App\Models\Context;
 use App\Models\Deployment;
+use App\Models\LtiPlatform;
 use App\Models\Platform;
 use App\Models\ResourceLink;
 use App\Models\User;
@@ -19,29 +20,30 @@ class LtiInstance extends Authenticatable
     protected $table = 'lti1p3_instances';
     protected $keyType = 'string';
     public $incrementing = false;
+    const UPDATED_AT = null;
     protected $with = ['platform', 'context', 'resource_link', 'user'];
 
     protected $fillable = ['id', 'lti1p3_platform_id', 'lti1p3_deployment_id', 'lti1p3_context_id', 
     'lti1p3_resource_link_id', 'lti1p3_user_id', 'initial_message', 'created_at'];
 
     public function platform() : BelongsTo {
-        return $this->belongsTo(LtiPlatform::class, 'platform_id');
+        return $this->belongsTo(LtiPlatform::class, 'lti1p3_platform_id');
     }
 
     public function context() : BelongsTo {
-        return $this->belongsTo(LtiContext::class, 'context_id');
+        return $this->belongsTo(LtiContext::class, 'lti1p3_context_id');
     }
 
     public function deployment() : BelongsTo {
-        return $this->belongsTo(LtiDeployment::class, 'deployment_id');
+        return $this->belongsTo(LtiDeployment::class, 'lti1p3_deployment_id');
     }
 
     public function resource_link() : BelongsTo {
-        return $this->belongsTo(LtiResourceLink::class, 'resource_link_id');
+        return $this->belongsTo(LtiResourceLink::class, 'lti1p3_resource_link_id');
     }
 
     public function user() : BelongsTo {
-        return $this->belongsTo(LtiUser::class, 'user_id');
+        return $this->belongsTo(LtiUser::class, 'lti1p3_user_id');
     }
 
     public function isExpired() : bool {

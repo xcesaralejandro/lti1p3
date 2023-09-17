@@ -3,11 +3,11 @@
 namespace xcesaralejandro\lti1p3\Http\Middleware;
 
 use Closure;
-use App\Models\Instance;
+use App\Models\LtiInstance;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
-class InstanceRecovery
+class InjectInstance
 {
     public function handle($request, Closure $next){
         $from_params = $request->{"lti1p3-instance-id"} ?? null;
@@ -15,7 +15,7 @@ class InstanceRecovery
         $instance_id = $from_headers ?? $from_params;
         if(!empty($instance_id)){
             try{
-                $instance = Instance::RecoveryFromId($instance_id);
+                $instance = LtiInstance::findOrFail($instance_id);
             }catch(ModelNotFoundException $e){
                 abort(401);
             }

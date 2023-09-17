@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('name', 2000)->nullable();
             $table->string('version')->nullable();
             $table->string('product_family_code')->nullable();
-            $table->string('validation_context')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

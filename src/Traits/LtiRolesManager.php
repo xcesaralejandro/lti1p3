@@ -122,8 +122,7 @@ use App\Models\UserRole;
                 return $this->context_roles[$request_key];
             }else{
                 $roles = UserRole::select('name')->where('user_id', $this->id)
-                ->where('lti_context_id', $context->id)->where('creation_context', UserRole::LTI)
-                ->pluck('name')->toArray();
+                ->where('lti1p3_context_id', $context->id)->pluck('name')->toArray();
                 $this->context_roles[$request_key] = $roles;
             }
             return $roles;

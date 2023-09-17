@@ -4,27 +4,27 @@ namespace xcesaralejandro\lti1p3\Classes;
 use Illuminate\Support\Facades\Log;
 use xcesaralejandro\lti1p3\Classes\Content;
 use xcesaralejandro\lti1p3\Facades\JWT;
-use xcesaralejandro\lti1p3\Models\Nonce;
-use App\Models\Platform;
+use xcesaralejandro\lti1p3\Models\LtiNonce;
+use App\Models\LtiPlatform;
 
 class Message {
 
     private string $raw_jwt;
     private Content $content;
-    private Platform $platform;
+    private LtiPlatform $platform;
     const LTI_DEEP_LINKING_REQUEST = 'LtiDeepLinkingRequest';
     const LTI_RESOURCE_LINK_REQUEST = 'LtiResourceLinkRequest';
 
     function __construct(string $jwt, string $nonce) {
         $this->raw_jwt = $jwt;
-        $nonce = Nonce::where(['value' => $nonce])->firstOrFail();
+        $nonce = LtiNonce::where(['value' => $nonce])->firstOrFail();
         $this->platform = $nonce->platform()->firstOrFail();
         $this->content = $this->getContentFromToken();
         TokenValidator::validOrFail($this->content, $this->platform);
         $nonce->delete();
     }
 
-    public function getPlatform() : Platform {
+    public function getPlatform() : LtiPlatform {
         return $this->platform;
     }
 
@@ -56,7 +56,7 @@ class Message {
         return $content;
     }
 
-    public static function decodeJWT(Platform $platform, string $initial_message) : Content {
+    public static function decodeJWT(LtiPlatform $platform, string $initial_message) : Content {
         $jwk = $platform->getPublicJwk();
         $signature_method = $platform->signature_method;
         $raw_content = JWT::decode($initial_message, $jwk, array($signature_method));

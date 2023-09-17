@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-8 offset-md-2 bg-white border p-3">
             <h5 class="text-center">{{trans('lti1p3::strings.deployment_add_title', ['platform_name' => $platform->local_name])}}</h5>
-            <form action="{{route('lti1p3.deployments.store', ['platform_id' => $platform->id])}}" method="post" class="mt-3">
+            <form action="{{route('lti1p3.deployments.store', ['lti1p3_platform_id' => $platform->id])}}" method="post" class="mt-3">
                 @csrf
                 <div class="row no-gutters">
                     <div class="mt-2 col-12 col-lg-5">
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-2 d-flex justify-content-end">
                     <span class="icon-button">
-                        <form action="{{route('lti1p3.deployments.destroy', ['platform_id' => $platform->id, 'deployment' => $deployment->id])}}" method="post">
+                        <form action="{{route('lti1p3.deployments.destroy', ['lti1p3_platform_id' => $platform->id, 'deployment' => $deployment->id])}}" method="post">
                           @method('delete')
                           @csrf
                           <button type="submit" class="p-0 m-0 bg-white border-0"

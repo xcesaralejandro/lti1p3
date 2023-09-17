@@ -1,18 +1,18 @@
 <?php
 namespace xcesaralejandro\lti1p3\DataStructure;
-use App\Models\Context;
-use App\Models\Platform;
-use App\Models\ResourceLink;
-use App\Models\User;
+use App\Models\LtiContext;
+use App\Models\LtiPlatform;
+use App\Models\LtiResourceLink;
+use App\Models\LtiUser;
 use xcesaralejandro\lti1p3\Classes\Message;
-use App\Models\Deployment;
+use App\Models\LtiDeployment;
 
 class ResourceLinkInstance 
 {
-    public Platform $platform;
-    public Deployment $deployment;
-    public Context $context;
-    public ResourceLink $resourceLink;
-    public User $user;
+    public LtiPlatform $platform;
+    public LtiDeployment $deployment;
+    public LtiContext $context;
+    public LtiResourceLink $resourceLink;
+    public LtiUser $user;
     public Message $message;
 }

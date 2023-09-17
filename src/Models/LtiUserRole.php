@@ -18,7 +18,7 @@ class LtiUserRole extends Model
 
     protected $table = 'lti1p3_user_roles';
 
-    protected $fillable = ['lti1p3_context_id', 'lti1p3_user_id','name', 'creation_context'];
+    protected $fillable = ['lti1p3_context_id', 'lti1p3_user_id','name'];
 
     public function context() : BelongsTo {
         return $this->belongsTo(LtiContext::class, 'lti1p3_context_id');

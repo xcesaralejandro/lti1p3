@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('lti_id')->index();
             $table->text('description')->nullable();
             $table->string('title')->nullable();
-            $table->string('validation_context')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('lti1p3_context_id')->references('id')->on('lti1p3_contexts')->onDelete('cascade');

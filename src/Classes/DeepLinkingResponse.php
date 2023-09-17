@@ -1,9 +1,9 @@
 <?php
 namespace xcesaralejandro\lti1p3\Classes;
 
-use App\Models\Instance;
+use App\Models\LtiInstance;
 use Carbon\Carbon;
-use xcesaralejandro\lti1p3\Models\Nonce;
+use xcesaralejandro\lti1p3\Models\LtiNonce;
 
 class DeepLinkingResponse {
 
@@ -16,8 +16,9 @@ class DeepLinkingResponse {
     const LTI_VERSION_CLAIM = 'https://purl.imsglobal.org/spec/lti/claim/version';
     const CONTENT_ITEMS_CLAIM = 'https://purl.imsglobal.org/spec/lti-dl/claim/content_items';
     const DATA_CLAIM = 'https://purl.imsglobal.org/spec/lti-dl/claim/data';
+    private LtiInstance $instance;
 
-    function __construct(Instance $instance){
+    function __construct(LtiInstance $instance){
         $this->instance = $instance;
         $this->initPayload();
     }
@@ -60,7 +61,7 @@ class DeepLinkingResponse {
     }
 
     private function getNonce() : string {
-        $nonce = Nonce::create(['platform_id' => $this->instance->platform->id]);
+        $nonce = LtiNonce::create(['lti1p3_platform_id' => $this->instance->platform->id]);
         return $nonce->value;
     }
 
@@ -90,5 +91,4 @@ class DeepLinkingResponse {
         return $jwt;
     }
 
-    //     return View('lti1p3::helpers.autoSubmitForm', ['url' => $url, 'params' => $params]); 
 }

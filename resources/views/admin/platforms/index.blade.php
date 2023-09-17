@@ -122,7 +122,7 @@
         </table>
         <footer>
           <div class="d-flex justify-content-center">
-            <a href="{{route('lti1p3.deployments.index', ['platform_id' => $platform->id])}}" type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
+            <a href="{{route('lti1p3.deployments.index', ['lti1p3_platform_id' => $platform->id])}}" type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
               {{trans('lti1p3::strings.platform_add_new_deployment_button')}}
             </a>
           </div>

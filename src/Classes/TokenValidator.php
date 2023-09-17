@@ -1,12 +1,12 @@
 <?php
 namespace xcesaralejandro\lti1p3\Classes;
 use Illuminate\Support\Facades\Log;
-use App\Models\Platform;
+use App\Models\LtiPlatform;
 
 class TokenValidator {
     const Lti1p3 = '1.3.0';
 
-    public static function validOrFail(Content $content, Platform $platform){
+    public static function validOrFail(Content $content, LtiPlatform $platform){
         static::assertLti1p3($content);
         static::assertValidJwt($content, $platform);
         static::assertTokenNotExpired($content);
@@ -20,7 +20,7 @@ class TokenValidator {
         }
     }
 
-    public static function assertValidJwt(Content $content, Platform $platform) : Void {
+    public static function assertValidJwt(Content $content, LtiPlatform $platform) : Void {
         $hasErrors = false;
         $message = 'Part of the content inside token delivered by the lms does not match with platform configuration.';
         if($platform->issuer_id != $content->getIss()){

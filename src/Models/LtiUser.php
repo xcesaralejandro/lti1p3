@@ -27,12 +27,4 @@ class LtiUser extends Authenticatable
         return $this->hasMany(LtiUserRole::class, 'lti1p3_user_id', 'id');
     }
 
-    public function isToolAdmin() : bool {
-        $finded_roles_count = LtiUserRole::where([
-            ['creation_context', '=', UserRole::LOCAL], 
-            ['name', '=', 'administrator'], 
-            ['user_id', '=', $this->id]
-        ])->count();
-        return $finded_roles_count > 0;
-    }
 }
