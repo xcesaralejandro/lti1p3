@@ -17,8 +17,7 @@ class User extends Authenticatable
 {
     use LtiRolesManager, SoftDeletes;
 
-    protected $table = 'users';
-
+    protected $table = 'lti1p3_users';
     protected $fillable = ['platform_id','lti_id', 'password', 'name', 'given_name', 'family_name',
     'email', 'picture', 'person_sourceid', 'creation_method'];
     protected $hidden = ['password', 'remember_token'];

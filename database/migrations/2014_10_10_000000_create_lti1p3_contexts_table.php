@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResourceLinksTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateResourceLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('resource_links', function (Blueprint $table) {
+        Schema::create('lti1p3_contexts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('context_id');
+            $table->foreignId('deployment_id');
             $table->string('lti_id')->index();
-            $table->text('description')->nullable();
+            $table->string('label')->nullable();
             $table->string('title')->nullable();
-            $table->string('validation_context')->nullable();
+            $table->text('type')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('context_id')->references('id')->on('contexts')->onDelete('cascade');
+            $table->foreign('deployment_id')->references('id')->on('lti1p3_deployments')->onDelete('cascade');
         });
     }
 
@@ -33,6 +33,6 @@ class CreateResourceLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resource_links');
+        Schema::dropIfExists('lti1p3_contexts');
     }
-}
+};

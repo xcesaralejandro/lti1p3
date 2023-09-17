@@ -70,7 +70,6 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         Blade::directive('addinstance', function ($instance_id) {
             return '<input type="hidden" name="lti1p3-instance-id" value="'."<?php echo $instance_id; ?>".'" />';
         });
-
     }
 
     protected function packageBasePath($uri){

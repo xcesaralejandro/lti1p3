@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNoncesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateNoncesTable extends Migration
      */
     public function up()
     {
-        Schema::create('nonces', function (Blueprint $table) {
+        Schema::create('lti1p3_nonces', function (Blueprint $table) {
             $table->id();
             $table->uuid('value')->unique();
             $table->foreignId('platform_id');
             $table->timestamps();
-            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
+            $table->foreign('platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateNoncesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nonces');
+        Schema::dropIfExists('lti1p3_nonces');
     }
-}
+};

@@ -12,7 +12,7 @@ class Nonce extends Model
 {
     use HasFactory;
 
-    protected $table = 'nonces';
+    protected $table = 'lti1p3_nonces';
     protected $fillable = ['value', 'platform_id'];
 
     protected static function boot()

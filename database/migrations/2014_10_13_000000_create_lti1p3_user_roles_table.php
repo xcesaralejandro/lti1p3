@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserRolesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_roles', function (Blueprint $table) {
+        Schema::create('lti1p3_user_roles', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('lti_context_id')->nullable();
             $table->foreignId('user_id');
@@ -21,8 +21,8 @@ class CreateUserRolesTable extends Migration
             $table->enum('creation_context', ['LTI', 'LOCAL']);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('lti_context_id')->references('id')->on('contexts')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('lti_context_id')->references('id')->on('lti1p3_contexts')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('lti1p3_users')->onDelete('cascade');
         });
     }
 
@@ -33,6 +33,6 @@ class CreateUserRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('lti1p3_user_roles');
     }
-}
+};

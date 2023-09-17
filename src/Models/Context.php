@@ -16,6 +16,7 @@ class Context extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'lti1p3_contexts';
     protected $fillable = ['deployment_id','lti_id', 'label', 'title', 'type'];
 
     public function resourceLinks() : HasMany {

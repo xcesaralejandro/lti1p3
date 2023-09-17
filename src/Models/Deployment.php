@@ -15,8 +15,7 @@ class Deployment extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'deployments';
-
+    protected $table = 'lti1p3_deployments';
     protected $fillable = ['platform_id', 'lti_id', 'creation_method'];
 
     public function platform() : BelongsTo {

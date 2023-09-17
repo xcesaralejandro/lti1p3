@@ -16,13 +16,9 @@ use xcesaralejandro\lti1p3\Classes\Message;
 class Instance extends Authenticatable
 {
 
-    protected $table = 'instances';
-
+    protected $table = 'lti1p3_instances';
     protected $keyType = 'string';
-
     public $incrementing = false;
-
-    const UPDATED_AT = null;
 
     protected $fillable = ['id', 'platform_id', 'deployment_id', 'context_id', 'resource_link_id', 'user_id', 'initial_message', 'created_at'];
 

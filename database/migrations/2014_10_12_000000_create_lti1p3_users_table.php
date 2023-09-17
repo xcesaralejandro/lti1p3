@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('lti1p3_users', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('platform_id')->nullable();
             $table->uuid('lti_id')->index()->nullable();
@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
+            $table->foreign('platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
         });
     }
 
@@ -39,6 +39,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('lti1p3_users');
     }
-}
+};

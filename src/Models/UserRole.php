@@ -16,7 +16,7 @@ class UserRole extends Model
     const LTI = 'LTI';
     const LOCAL = 'LOCAL';
 
-    protected $table = 'user_roles';
+    protected $table = 'lti1p3_user_roles';
 
     protected $fillable = ['lti_context_id', 'user_id','name', 'creation_context'];
 

@@ -14,14 +14,14 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-        $user_id = DB::table('users')->insertGetId([
+        $user_id = DB::table('lti1p3_users')->insertGetId([
             'name' => 'Admin',
             'password' => bcrypt('lti1p3_admin'),
             'email' => 'admin@lti1p3.cl',
             'creation_method' => 'MANUAL',
         ]);
 
-        DB::table('user_roles')->insert([
+        DB::table('lti1p3_user_roles')->insert([
             'user_id' => $user_id,
             'name' => 'administrator',
             'creation_context' => 'LOCAL'

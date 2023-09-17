@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstancesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateInstancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('instances', function (Blueprint $table) {
+        Schema::create('lti1p3_instances', function (Blueprint $table) {
             $table->uuid('id');
             $table->foreignId('platform_id');
             $table->foreignId('deployment_id');
@@ -23,11 +23,11 @@ class CreateInstancesTable extends Migration
             $table->text('initial_message');
             $table->json('custom')->nullable();
             $table->timestamp('created_at');
-            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
-            $table->foreign('deployment_id')->references('id')->on('deployments')->onDelete('cascade');
-            $table->foreign('context_id')->references('id')->on('contexts')->onDelete('cascade');
-            $table->foreign('resource_link_id')->references('id')->on('resource_links')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
+            $table->foreign('deployment_id')->references('id')->on('lti1p3_deployments')->onDelete('cascade');
+            $table->foreign('context_id')->references('id')->on('lti1p3_contexts')->onDelete('cascade');
+            $table->foreign('resource_link_id')->references('id')->on('lti1p3_resource_links')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('lti1p3_users')->onDelete('cascade');
 
         });
     }
@@ -39,6 +39,6 @@ class CreateInstancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('instances');
+        Schema::dropIfExists('lti1p3_instances');
     }
-}
+};

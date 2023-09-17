@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDeploymentsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateDeploymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('deployments', function (Blueprint $table) {
+        Schema::create('lti1p3_deployments', function (Blueprint $table) {
             $table->id('id');
             $table->string('lti_id');
             $table->enum('creation_method', ['AUTOREGISTER', 'MANUAL'])->default('MANUAL');
             $table->foreignId('platform_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
+            $table->foreign('platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateDeploymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deployments');
+        Schema::dropIfExists('lti1p3_deployments');
     }
-}
+};
