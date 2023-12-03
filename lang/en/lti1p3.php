@@ -2,7 +2,7 @@
 
 return [
     'app_name' => 'LTI 1.3 Template',
-    'login_title' => 'Login',
+    'login_title' => 'Lti1p3 admin login',
     'login_username_placeholder' => 'Username',
     'login_password_placeholder' => 'Password',
     'login_remember_me' => 'Remember the session',

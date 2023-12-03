@@ -21,7 +21,7 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         $router->aliasMiddleware('inject_lti_instance', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\InjectInstance::class');
         $router->aliasMiddleware('lti1p3_session', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\Lti1p3Session::class');
 
-        $this->loadTranslationsFrom($this->packageBasePath('resources/lang'), 'lti1p3');
+        $this->loadTranslationsFrom($this->packageBasePath('lang'), 'lti1p3');
 
         $this->publishes([
             $this->packageBasePath('resources/views') => resource_path("/views/vendor/lti1p3")
