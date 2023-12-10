@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'app_name' => 'LTI 1.3 Template',
+    'app_name' => 'LTI 1.3',
     'login_title' => 'Lti1p3 admin login',
     'login_username_placeholder' => 'Username',
     'login_password_placeholder' => 'Password',
@@ -9,8 +9,8 @@ return [
     'login_button' => 'sign in',
     'login_attemp_failed' => 'Bad login',
     'navbar_add_platform' => 'New platform',
-    'navbar_list_platforms' => 'List platforms',
-    'navbar_logout' => 'logout',
+    'navbar_platforms' => 'Platforms',
+    'navbar_logout' => 'Sign out',
     'platform_local_name_label' => 'Platform name',
     'platform_issuer_id_label' => 'Platform id',
     'platform_client_id_label' => 'Client id',

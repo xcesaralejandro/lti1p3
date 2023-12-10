@@ -1,4 +1,4 @@
-@extends('lti1p3::templates.app')
+@extends('lti1p3::templates.dashboard')
 
 @section('header')
     @include('lti1p3::templates.navbar')
