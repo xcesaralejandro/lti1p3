@@ -1,19 +1,3 @@
-{{-- 
-<body>
-    <header>
-        @yield('header')
-    </header>
-    <div class="container-fluid main-content">
-    </div>
-    <footer>
-    </footer>
-    <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
-    @stack('js')
-</body>
-</html> --}}
-
-
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
