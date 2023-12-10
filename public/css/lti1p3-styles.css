@@ -50,9 +50,13 @@ background-color: #f2f4f6 !important;
   user-select: none;
 }
 
+.sidebar{
+  padding: 0 !important;
+}
 
-
-
+.btn-collapsed-menu:hover{
+  cursor: pointer;
+}
 
 
 

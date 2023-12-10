@@ -19,7 +19,7 @@ return [
     'platform_authentication_url_label' => 'Authentication url',
     'platform_json_webkey_url_label' => 'Json webkey url',
     'platform_signature_method_label' => 'Signature method',
-    'platform_deployment_id_autoregister_label' => 'Auto register deployments',
+    'platform_deployment_id_autoregister_label' => 'Auto register',
     'platform_deployments_count_label' => 'Deployments count',
     'platform_manage_deployments' => 'Manage deployments', 
     'platform_new_platform_title' => 'New link with one LMS',

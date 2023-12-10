@@ -29,9 +29,7 @@
           </td>
           <td>
             <div class="btn-group dropstart unselectable">
-              <p type="button"  data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="material-icons">more_vert</span>
-              </p>
+              <span class="material-icons btn-collapsed-menu" data-bs-toggle="dropdown" aria-expanded="false">more_vert</span>
               <ul class="dropdown-menu">
                 <li>
                     <a class="dropdown-item" href="#">
