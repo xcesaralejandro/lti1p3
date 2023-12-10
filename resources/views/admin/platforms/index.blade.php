@@ -1,137 +1,65 @@
 @extends('lti1p3::templates.dashboard')
 
-@section('header')
-    @include('lti1p3::templates.navbar')
-@endsection
-
 @section('content')
 <div class="container">
-  <div class="row">
-    @if($platforms->isEmpty())
-      <div class="col-md-8 offset-md-2 bg-white border p-5">
-        <h3 class="text-center">
-          {{trans('lti1p3::lti1p3.platform_not_found')}}
-        </h3>
-        <div class="d-flex justify-content-center pt-2">
-          <a href="{{route('lti1p3.platforms.create')}}" class="btn btn-outline-primary">
-            {{trans('lti1p3::lti1p3.platform_add_new_button')}}
-          </a>
-        </div>
-      </div>
-    @endif
-  
-    @foreach($platforms as $platform)
-      <article class="col-md-8 offset-md-2 bg-white border p-3 mb-3 pb-1 platform-card">
-        <header class="d-flex justify-content-between align-items-center">
-          <h5 class="font-weight-bold p-0 m-0 d-flex align-items-center">
-            @php
-              $bubble = $platform->wasLaunched() ? 'bubble-enable' : 'bubble-disable';
-            @endphp
-            <i class="material-icons {{$bubble}}">circle</i>
-            <span class="px-2">{{$platform->local_name}}</span>
-          </h5>
-          <span class="icon-button">
-            <form action="{{route('lti1p3.platforms.destroy', [$platform->id])}}" method="post">
-                @method('delete')
-                @csrf
-                <button type="submit" class="p-0 m-0 bg-white border-0"
-                  onclick="return confirm(
-                    '{{trans('lti1p3::lti1p3.platform_confirm_delete', 
-                      ['name' => $platform->name])}}')">
-                  <i class="material-icons">delete</i>
-                </button>
-              </form>
-          </span>
-        </header>
-        <hr>
-        <table>
-          <tr>
-            <th class="font-weight-normal">
-              {{trans('lti1p3::lti1p3.platform_issuer_id_label')}}:
-            </th>
-            <td class="font-weight-light">{{$platform->issuer_id}}</td>
-          </tr>
-          <tr>
-            <th class="font-weight-normal">
-              {{trans('lti1p3::lti1p3.platform_client_id_label')}}:
-            </th>
-            <td class="font-weight-light">
-              {{$platform->client_id}}
-            </td>
-          </tr>
-          <tr>
-            <th class="font-weight-normal">
-              {{trans('lti1p3::lti1p3.platform_authorization_url_label')}}:
-            </th>
-            <td class="font-weight-light">
-              {{$platform->authorization_url}}
-            </td>
-          </tr>
-          <tr>
-            <th class="font-weight-normal">
-              {{trans('lti1p3::lti1p3.platform_authentication_url_label')}}:
-            </th>
-            <td class="font-weight-light">
-              {{$platform->authentication_url}}
-            </td>
-          </tr>
-          <tr>
-            <th class="font-weight-normal">
-              {{trans('lti1p3::lti1p3.platform_lti_advantage_token_url_label')}}:
-            </th>
-            <td class="font-weight-light">
-              {{$platform->lti_advantage_token_url}}
-            </td>
-          </tr>
-          <tr>
-            <th class="font-weight-normal">
-              {{trans('lti1p3::lti1p3.platform_json_webkey_url_label')}}:
-            </th>
-            <td class="font-weight-light">
-              {{$platform->json_webkey_url}}
-            </td>
-          </tr>
-          <tr>
-            <th class="font-weight-normal">
-              {{trans('lti1p3::lti1p3.platform_signature_method_label')}}:
-            </th>
-            <td class="font-weight-light">
-              {{$platform->signature_method}}
-            </td>
-          </tr>
-          <tr>
-            <th class="font-weight-normal">
-              {{trans('lti1p3::lti1p3.platform_deployment_id_autoregister_label')}}:
-            </th>
-            <td class="font-weight-light">
-              {{
-                $platform->deployment_id_autoregister ? 
-                trans('lti1p3::lti1p3.auto_register_deployments_enable') : 
-                trans('lti1p3::lti1p3.auto_register_deployments_disable')
-              }}
-            </td>
-          </tr>
-          <tr>
-            <th class="font-weight-normal">
-              {{trans('lti1p3::lti1p3.platform_deployments_count_label')}}:
-            </th>
-            <td class="font-weight-light">
-               {{$platform->deployments_count}}
-            </td>
-          </tr>
-        </table>
-        <footer>
-          <div class="d-flex justify-content-center">
-            <a href="{{route('lti1p3.deployments.index', ['platform_id' => $platform->id])}}" type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
-              {{trans('lti1p3::lti1p3.platform_add_new_deployment_button')}}
-            </a>
-          </div>
-          <span class="text-caption font-italic d-flex justify-content-end pt-2">
-            {{trans('lti1p3::lti1p3.created_at_label', ['date' => $platform->created_at])}}
-          </span>
-        </footer>
-      </article>
-    @endforeach
+  <div class="table-responsive">
+    <table class="table caption-top">
+      <h3 class="mb-4 fw-normal text-uppercase">{{trans('lti1p3::lti1p3.platform_title')}}</h3>
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Name</th>
+          <th scope="col">{{trans('lti1p3::lti1p3.platform_deployments_count_label')}}</th>
+          <th scope="col">{{trans('lti1p3::lti1p3.platform_deployment_id_autoregister_label')}}</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @forelse($platforms as $platform)
+        <tr>
+          <td>{{$platform->id}}</td>
+          <td>{{$platform->local_name}}</td>
+          <td>{{$platform->deployments_count}}</td>
+          <td>
+            {{
+              $platform->deployment_id_autoregister ? 
+              trans('lti1p3::lti1p3.auto_register_deployments_enable') : 
+              trans('lti1p3::lti1p3.auto_register_deployments_disable')
+            }}
+          </td>
+          <td>
+            <div class="btn-group dropstart unselectable">
+              <p type="button"  data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="material-icons">more_vert</span>
+              </p>
+              <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="#">
+                        {{trans('lti1p3::lti1p3._config')}}
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{route('lti1p3.deployments.index', ['platform_id' => $platform->id])}}">
+                        {{trans('lti1p3::lti1p3.platform_manage_deployments')}}
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" onclick="return confirm(
+                        '{{trans('lti1p3::lti1p3.platform_confirm_delete', 
+                        ['name' => $platform->name])}}')">
+                        {{trans('lti1p3::lti1p3._delete')}}
+                    </a>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        @empty
+        <p>{{trans('lti1p3::lti1p3.platform_not_found')}}</p>
+        @endforelse
+      </tbody>
+    </table>
   </div>
+
 </div>
 @endsection

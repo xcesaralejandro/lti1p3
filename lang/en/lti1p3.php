@@ -2,15 +2,15 @@
 
 return [
     'app_name' => 'LTI 1.3',
-    'login_title' => 'Lti1p3 admin login',
+    'login_title' => 'LTI 1.3 Login',
     'login_username_placeholder' => 'Username',
     'login_password_placeholder' => 'Password',
     'login_remember_me' => 'Remember the session',
     'login_button' => 'sign in',
     'login_attemp_failed' => 'Bad login',
-    'navbar_add_platform' => 'New platform',
     'navbar_platforms' => 'Platforms',
     'navbar_logout' => 'Sign out',
+    'platform_title' => 'Platforms',
     'platform_local_name_label' => 'Platform name',
     'platform_issuer_id_label' => 'Platform id',
     'platform_client_id_label' => 'Client id',
@@ -21,7 +21,7 @@ return [
     'platform_signature_method_label' => 'Signature method',
     'platform_deployment_id_autoregister_label' => 'Auto register deployments',
     'platform_deployments_count_label' => 'Deployments count',
-    'platform_add_new_deployment_button' => 'Manage deployments', 
+    'platform_manage_deployments' => 'Manage deployments', 
     'platform_new_platform_title' => 'New link with one LMS',
     'platform_not_found' => 'No platforms have been added yet',
     'platform_deployment_id_label' => 'Deployment id',
@@ -44,5 +44,8 @@ return [
     'deployment_confirm_delete' => '¿Are you sure you want to remove the deployment: :id ?',
     'deployment_created_successfully' => 'Deployment was added successfully',
     'deployment_deleted_successfully' => 'Deployment was deleted successfully',
-    'deployment_creation_failed' => 'The deployment could not be added.'
+    'deployment_creation_failed' => 'The deployment could not be added.',
+    '_new' => 'New',
+    '_config' => 'Config',
+    '_delete' => 'Delete',
 ];
