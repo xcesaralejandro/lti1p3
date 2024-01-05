@@ -1,5 +1,7 @@
 <nav id="main-menu" class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-nav">
-    <img width="100%" src="{{ asset('img/lti1p3-logo.png') }}" />
+    <div class="d-flex justify-content-center">
+      <img width="70%" src="{{ asset('img/lti1p3-logo.png') }}" />
+    </div>
     <ul class="nav flex-column">
       <li class="nav-item nav-item">
         <a class="nav-link d-flex align-items-center text-white" href="{{route('lti1p3.platforms.index')}}">

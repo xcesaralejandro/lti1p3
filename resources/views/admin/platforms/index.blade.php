@@ -42,10 +42,13 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" onclick="return confirm(
-                        '{{trans('lti1p3::lti1p3.platform_confirm_delete', 
-                        ['name' => $platform->name])}}')">
+                    <a class="dropdown-item" onclick="return removePlatform(event, 
+                        '{{trans('lti1p3::lti1p3.platform_confirm_delete', ['name' => $platform->local_name])}}')">
                         {{trans('lti1p3::lti1p3._delete')}}
+                        <form action="{{route('lti1p3.platforms.destroy', [$platform->id])}}" method="POST">
+                          @csrf
+                          @method('delete')
+                        </form>
                     </a>
                 </li>
               </ul>
@@ -58,6 +61,17 @@
       </tbody>
     </table>
   </div>
-
 </div>
 @endsection
+@push('body')
+<script>
+function removePlatform(event, message){
+  event.preventDefault();
+  let remove = confirm(message)
+  if(remove){
+    let form = event.target.querySelector('form');
+    form.submit();
+  }
+}
+</script>
+@endpush

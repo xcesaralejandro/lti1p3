@@ -8,7 +8,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/lti1p3-styles.css') }}" rel="stylesheet" type="text/css" />
-    @stack('css')
+    @stack('head')
     <link href="{{ asset('css/lti1p3_styles.css') }}" rel="stylesheet" type="text/css" />
     <title>{{ trans('lti1p3::lti1p3.app_name') }}</title>
 </head>
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="{{ asset('js/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dashboard.js') }}"></script>
-    @stack('js')
+    @stack('body')
 </body>
 
 </html>
