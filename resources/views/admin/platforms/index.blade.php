@@ -2,9 +2,15 @@
 
 @section('content')
 <div class="container">
+  <h3 class="fw-normal text-uppercase mb-4">{{trans('lti1p3::lti1p3.platform_title')}}</h3>
+  <div class="d-flex mb-4">
+    <a href="{{route('lti1p3.platforms.create')}}" type="button" class="btn btn-secondary btn-sm d-flex align-content-center">
+      <span class="material-icons me-2">add</span>
+      <span>{{trans('lti1p3::lti1p3._new')}}</span>
+    </a>
+  </div>
   <div class="table-responsive">
     <table class="table caption-top">
-      <h3 class="mb-4 fw-normal text-uppercase">{{trans('lti1p3::lti1p3.platform_title')}}</h3>
       <thead>
         <tr>
           <th scope="col">id</th>
@@ -56,7 +62,10 @@
           </td>
         </tr>
         @empty
-        <p>{{trans('lti1p3::lti1p3.platform_not_found')}}</p>
+        <div class="d-flex align-content-center mb-4 alert alert-info">
+          <span class="material-icons me-3">info</span>
+          <span>{{trans('lti1p3::lti1p3.platform_not_found')}}</span>
+        </div>
         @endforelse
       </tbody>
     </table>
