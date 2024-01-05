@@ -58,9 +58,16 @@ background-color: #f2f4f6 !important;
   cursor: pointer;
 }
 
+.login-logo-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
 
-
-
+.login-logo-container img{
+  max-width: 50%;
+}
 
 .bd-placeholder-img {
   font-size: 1.125rem;
