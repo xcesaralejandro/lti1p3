@@ -39,18 +39,21 @@
                 <span class="material-icons btn-more-actions" data-bs-toggle="dropdown" aria-expanded="false">more_horiz</span>
                 <ul class="dropdown-menu">
                   <li>
-                      <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="#">
+                          <span class="material-icons me-2">settings</span>
                           {{trans('lti1p3::lti1p3._config')}}
                       </a>
                   </li>
                   <li>
                       <a class="dropdown-item" href="{{route('lti1p3.deployments.index', ['platform_id' => $platform->id])}}">
+                          <span class="material-icons me-2">app_registration</span>
                           {{trans('lti1p3::lti1p3.platform_manage_deployments')}}
                       </a>
                   </li>
                   <li>
                       <a class="dropdown-item" onclick="return removePlatform(event, 
                           '{{trans('lti1p3::lti1p3.platform_confirm_delete', ['name' => $platform->local_name])}}')">
+                          <span class="material-icons me-2">delete</span>
                           {{trans('lti1p3::lti1p3._delete')}}
                           <form action="{{route('lti1p3.platforms.destroy', [$platform->id])}}" method="POST">
                             @csrf

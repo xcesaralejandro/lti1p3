@@ -42,6 +42,7 @@
                                <li>
                                     <a class="dropdown-item" onclick="return removeDeployment(event, 
                                         '{{trans('lti1p3::lti1p3.deployment_confirm_delete', ['id' => $deployment->id])}}')">
+                                        <span class="material-icons me-2">delete</span>
                                         {{trans('lti1p3::lti1p3._delete')}}
                                         <form action="{{route('lti1p3.deployments.destroy', ['platform_id' => $platform->id, 'deployment' => $deployment->id])}}" method="post">
                                             @method('delete')
