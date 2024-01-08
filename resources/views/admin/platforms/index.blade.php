@@ -17,7 +17,7 @@
             <th scope="col">id</th>
             <th scope="col">Name</th>
             <th scope="col">{{trans('lti1p3::lti1p3.platform_deployments_count_label')}}</th>
-            <th scope="col">{{trans('lti1p3::lti1p3.platform_deployment_id_autoregister_label')}}</th>
+            <th scope="col">{{trans('lti1p3::lti1p3.platform_deployments_autoregister_label')}}</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>

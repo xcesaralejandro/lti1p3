@@ -16,7 +16,7 @@
                     {{trans('lti1p3::lti1p3.deployment_creation_failed')}}
                 </div>
                 @endif
-                <input type="submit" class="btn btn-primary" value="{{trans('lti1p3::lti1p3.save_button')}}"/>
+                <input type="submit" class="btn btn-primary btn-sm" value="{{trans('lti1p3::lti1p3.save_button')}}"/>
             </form>
         </div>
         <div class="col-lg-8 bg-white border rounded p-3 mt-3">
