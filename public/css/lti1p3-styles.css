@@ -65,10 +65,6 @@ body {
   padding: 0 !important;
 }
 
-.btn-collapsed-menu:hover{
-  cursor: pointer;
-}
-
 .login-logo-container{
   display: flex;
   justify-content: center;
@@ -101,8 +97,18 @@ body {
     border-color: #eeb15d;
 }
 
-.table-responsive{
-    min-height: 200px;
+.btn-more-actions {
+    background: #f2f4f6;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: ease-in-out all .1s;
+}
+
+.btn-more-actions:hover {
+    background: #374151;
+    color: white;
 }
 
 @media (min-width: 768px) {

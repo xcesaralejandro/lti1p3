@@ -17,7 +17,9 @@
         <div class="row no-gutters">
             @include('lti1p3::templates.navbar')
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-3">
-                @yield('content')
+                <div class="container">
+                    @yield('content')
+                </div>
             </main>
         </div>
     </div>
