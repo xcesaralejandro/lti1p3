@@ -24,6 +24,20 @@
     --bs-btn-active-border-color: transparent;
 }
 
+.dropdown-menu{
+    --bs-dropdown-font-size: .9rem;
+    --bs-dropdown-link-active-bg: #1f2937;
+}
+
+.dropdown-menu a > span.material-icons {
+    font-size: .9rem;
+}
+
+.dropdown-item {
+    display: flex !important;
+    align-items: center !important;
+}
+
 body {
     background-color: #f2f4f6 !important;
 }
