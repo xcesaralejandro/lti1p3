@@ -21,9 +21,12 @@ laravel >= 8.0
 
 `php artisan vendor:publish --provider=xcesaralejandro\lti1p3\Providers\Lti1p3ServiceProvider --force`
 
-#### 3.- Run migrations with seeders
+#### 3.- Add your administrator credentials in your .ENV
 
-`php artisan migrate --seed`
+````
+LTI1P3_ADMIN_USERNAME=example@lti1p3.cl
+LTI1P3_ADMIN_PASSWORD=lti1p3_admin
+````
 
 #### 4.- Complete the configuration file
 
@@ -55,12 +58,9 @@ I recommend you configure a local domain to develop, since when using JWT, the d
 
 #### Login in tool panel
 
-https://YOUR_APP_LARAVEL_DOMAIN/admin/login
+https://YOUR_APP_LARAVEL_DOMAIN/lti1p3/login
 
-USER: admin@lti1p3.cl
-
-PASSWORD: lti1p3_admin
-
+(The access credentials are those configured in your .ENV (Point 3))
 
 #### Tool JWKS endpoint
 
