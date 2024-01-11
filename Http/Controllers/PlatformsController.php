@@ -40,6 +40,7 @@ class PlatformsController {
     public function update(Request $request, $id) : mixed {
         $platform = LtiPlatform::findOrFail($id);
         $platform->fill($request->all());
+        $platform->deployment_id_autoregister = isset($request->deployment_id_autoregister);
         $platform->update();
         return View('lti1p3::admin.platforms.config')
         ->with(['wasUpdated' => true, 'platform' => $platform]);
