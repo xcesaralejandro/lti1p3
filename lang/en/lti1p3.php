@@ -31,6 +31,7 @@ return [
     'save_button' => 'SAVE',
     'platform_create_error' => 'The platform could not be added.',
     'platform_create_success' => 'The platform was created successfully.',
+    'platform_config_change_success' => 'The platform was updated successfully.',
     'platform_confirm_delete' => '¿Are you sure you want to remove the platform: :name ?',
     'platform_create_subtitle' => 'LMS platform data',
     'platform_create_description' => 'In this section you can link your LTI with a new LMS. Except for the name which is to reference the LMS locally, the rest of the values are provided after adding a new lti tool in the LMS. The signing method is usually the default for Moodle and Canvas, only update the value if you are sure. You can maintain a linked LMS that does not have installations in any courses or at the platform level (Enabled by default for all courses). Each installation within the LMS will give a new deployment_id that you must register manually if you want to control the LTI installations, if not, you can enable the option to auto register those deployment_id.',
@@ -52,4 +53,5 @@ return [
     '_new' => 'New',
     '_config' => 'Config',
     '_delete' => 'Delete',
+    '_update' => 'Update',
 ];

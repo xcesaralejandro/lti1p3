@@ -7,13 +7,14 @@
             <h2 class="h6 mb-4">
                 {{trans('lti1p3::lti1p3.platform_new_platform_title')}}
             </h2>
-            @if(isset($wasCreated))
+            @if(isset($wasUpdated))
                 <div class="alert alert-success mt-3 p-2" role="alert">
-                    {{trans('lti1p3::lti1p3.platform_create_success')}}
+                    {{trans('lti1p3::lti1p3.platform_config_change_success')}}
                 </div>
             @endif
-            <form action="{{route('lti1p3.platforms.store')}}" method="post">
+            <form action="{{route('lti1p3.platforms.update', [$platform->id])}}" method="post">
                 @csrf
+                @method('PUT')
                 @include('lti1p3::admin.platforms.forms.createOrUpdate')
                 @if($errors->any())
                 <div class="alert alert-danger mt-3 py-1" role="alert">
@@ -21,8 +22,8 @@
                 </div>
                 @endif
                 <div class="d-flex justify-content-end">
-                    <input type="submit" class="btn btn-outline-primary mt-3" 
-                        value="{{trans('lti1p3::lti1p3.save_button')}}"/>
+                    <input type="submit" class="btn btn-primary mt-3" 
+                        value="{{trans('lti1p3::lti1p3._update')}}"/>
                 </div>
             </form>
         </div>

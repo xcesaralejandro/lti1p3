@@ -39,7 +39,7 @@
                 <span class="material-icons btn-more-actions" data-bs-toggle="dropdown" aria-expanded="false">more_horiz</span>
                 <ul class="dropdown-menu">
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{route('lti1p3.platforms.edit', [$platform->id])}}">
                           <span class="material-icons me-2">settings</span>
                           {{trans('lti1p3::lti1p3._config')}}
                       </a>

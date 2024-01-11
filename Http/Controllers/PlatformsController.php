@@ -10,7 +10,8 @@ class PlatformsController {
 
     public function index() : View {
         return View('lti1p3::admin.platforms.index')->with([
-            'platforms' => LtiPlatform::withCount('deployments')->get(),
+            'platforms' => LtiPlatform::withCount('deployments')
+            ->orderBy('id','desc')->get(),
         ]);
     }
 
@@ -31,11 +32,17 @@ class PlatformsController {
     }
 
     public function edit($id) : mixed {
-        return redirect()->back();
+        $platform = LtiPlatform::findOrFail($id);
+        return View('lti1p3::admin.platforms.config')
+        ->with('platform', $platform);
     }
 
     public function update(Request $request, $id) : mixed {
-        return redirect()->back();
+        $platform = LtiPlatform::findOrFail($id);
+        $platform->fill($request->all());
+        $platform->update();
+        return View('lti1p3::admin.platforms.config')
+        ->with(['wasUpdated' => true, 'platform' => $platform]);
     }
 
     public function destroy($id) : mixed {
