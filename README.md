@@ -28,7 +28,10 @@ LTI1P3_ADMIN_USERNAME=example@lti1p3.cl
 LTI1P3_ADMIN_PASSWORD=lti1p3_admin
 ````
 
-#### 4.- Complete the configuration file
+#### 4.- Run migrations
+````php artisan migrate````
+
+#### 5.- Complete the configuration file
 
 After publishing our provider, we will have a file called lti1p3.php inside the config folder, there we will have to complete the configuration. Next I will leave the keys that are REQUIRED, the rest should be by default unless you understand that you are changing.
 
