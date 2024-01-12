@@ -19,7 +19,7 @@ laravel >= 8.0
 
 #### 2.- Publish the provider
 
-`php artisan vendor:publish --provider=xcesaralejandro\lti1p3\Providers\Lti1p3ServiceProvider --force`
+`php artisan vendor:publish --provider="xcesaralejandro\lti1p3\Providers\Lti1p3ServiceProvider" --force`
 
 #### 3.- Add your administrator credentials in your .ENV
 
