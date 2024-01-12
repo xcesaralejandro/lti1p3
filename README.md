@@ -44,7 +44,8 @@ A private RSA key
 You can generate a new RSA private key of 2048 bit here: https://travistidwell.com/jsencrypt/demo/
 
   
-  
+## Note  
+If you are using some reversible proxy it is possible that the package styles published by the provider will try to load with http instead of https, which produces an error. To fix the problem you can force the https scheme in your AppServiceProvider, adding ````\URL::forceScheme('https'); ```` in the boot method
 
 ## Are you ready to develop
 
