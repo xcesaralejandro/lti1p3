@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace xcesaralejandro\lti1p3\Providers;
 
 use Illuminate\Support\Facades\Blade;
@@ -26,7 +26,7 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         $this->publishes([
             $this->packageBasePath('resources/views') => resource_path("/views/vendor/lti1p3")
         ], 'xcesaralejandro-lti1p3-views');
-        
+
         $this->publishes([
             $this->packageBasePath('config/lti1p3.php') => base_path("config/lti1p3.php")
         ], 'xcesaralejandro-lti1p3-config');

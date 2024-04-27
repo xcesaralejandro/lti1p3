@@ -48,18 +48,16 @@ class Message {
         return $this->raw_jwt;
     }
 
-    private function getContentFromToken() : object {
+    private function getContentFromToken() : Content {
         $jwk = $this->platform->getPublicJwk();
-        $signature_method = $this->platform->signature_method;
-        $raw_content = JWT::decode($this->raw_jwt, $jwk, array($signature_method));
+        $raw_content = JWT::decode($this->raw_jwt, $jwk);
         $content = new Content($raw_content);
         return $content;
     }
 
     public static function decodeJWT(LtiPlatform $platform, string $initial_message) : Content {
         $jwk = $platform->getPublicJwk();
-        $signature_method = $platform->signature_method;
-        $raw_content = JWT::decode($initial_message, $jwk, array($signature_method));
+        $raw_content = JWT::decode($initial_message, $jwk);
         $content = new Content($raw_content);
         return $content;
     }

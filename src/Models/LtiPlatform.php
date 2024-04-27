@@ -17,9 +17,9 @@ class LtiPlatform extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'lti1p3_platforms';
-    
-    protected $fillable = ['issuer_id', 'client_id', 'authorization_url', 'authentication_url', 
-    'json_webkey_url','signature_method', 'deployment_id_autoregister', 'local_name', 'version', 
+
+    protected $fillable = ['issuer_id', 'client_id', 'authorization_url', 'authentication_url',
+    'json_webkey_url','signature_method', 'deployment_id_autoregister', 'local_name', 'version',
     'product_family_code', 'guid', 'name', 'lti_advantage_token_url'];
 
     public function users() : HasMany {
