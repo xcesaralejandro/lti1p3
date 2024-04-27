@@ -17,14 +17,12 @@ return new class extends Migration
             $table->id('id');
             $table->foreignId('lti1p3_platform_id')->nullable();
             $table->uuid('lti_id')->index()->nullable();
-            $table->string('password')->nullable();
             $table->string('name')->nullable();
             $table->string('given_name')->nullable();
             $table->string('family_name')->nullable();
             $table->string('email')->nullable();
             $table->string('picture')->nullable();
             $table->string('person_sourceid')->nullable();
-            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('lti1p3_platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
