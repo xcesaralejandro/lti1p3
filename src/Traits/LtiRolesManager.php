@@ -1,8 +1,8 @@
 <?php
     namespace xcesaralejandro\lti1p3\Traits;
 
-use App\Models\Context;
-use App\Models\UserRole;
+use App\Models\LtiContext;
+use App\Models\LtiUserRole;
 
     trait LtiRolesManager {
         public static $SYSTEM_ROLES = 'http://purl.imsglobal.org/vocab/lis/v2/system/person#';
@@ -11,52 +11,52 @@ use App\Models\UserRole;
         public static $PERSON_ROLES = 'http://purl.imsglobal.org/vocab/lti/system/person#';
         private array $context_roles = [];
 
-        public function isAdmin(Context $context, ?string $role_context = null) : bool {
+        public function isAdmin(LtiContext $context, ?string $role_context = null) : bool {
             $roles = config('lti1p3.LTI_ADMIN_ROLES_SPEC');
             return $this->hasSomeRolesOf($context, $roles, $role_context);
         }
 
-        public function isContentDeveloper(Context $context, ?string $role_context = null) : bool {
+        public function isContentDeveloper(LtiContext $context, ?string $role_context = null) : bool {
             $roles = config('lti1p3.LTI_CONTENT_DEVELOPER_ROLES_SPEC');
             return $this->hasSomeRolesOf($context, $roles, $role_context);
         }
 
-        public function isInstructor(Context $context, ?string $role_context = null) : bool {
+        public function isInstructor(LtiContext $context, ?string $role_context = null) : bool {
             $roles = config('lti1p3.LTI_INSTRUCTOR_ROLES_SPEC');
             return $this->hasSomeRolesOf($context, $roles, $role_context);
         }
 
-        public function isLearner(Context $context, ?string $role_context = null) : bool {
+        public function isLearner(LtiContext $context, ?string $role_context = null) : bool {
             $roles = config('lti1p3.LTI_LEARNER_ROLES_SPEC');
             return $this->hasSomeRolesOf($context, $roles, $role_context);
         }
 
-        public function isManager(Context $context, ?string $role_context = null) : bool {
+        public function isManager(LtiContext $context, ?string $role_context = null) : bool {
             $roles = config('lti1p3.LTI_MANAGER_ROLES_SPEC');
             return $this->hasSomeRolesOf($context, $roles, $role_context);
         }
 
-        public function isMentor(Context $context, ?string $role_context = null) : bool {
+        public function isMentor(LtiContext $context, ?string $role_context = null) : bool {
             $roles = config('lti1p3.LTI_MENTOR_ROLES_SPEC');
             return $this->hasSomeRolesOf($context, $roles, $role_context);
         }
 
-        public function isOfficer(Context $context, ?string $role_context = null) : bool {
+        public function isOfficer(LtiContext $context, ?string $role_context = null) : bool {
             $roles = config('lti1p3.LTI_OFFICER_ROLES_SPEC');
             return $this->hasSomeRolesOf($context, $roles, $role_context);
         }
 
-        public function isMember(Context $context, ?string $role_context = null) : bool {
+        public function isMember(LtiContext $context, ?string $role_context = null) : bool {
             $roles = config('lti1p3.LTI_MEMBER_ROLE_SPEC');
             return $this->hasSomeRolesOf($context, $roles, $role_context);
         }
 
-        public function isTestUser(Context $context, ?string $role_context = null) : bool {
+        public function isTestUser(LtiContext $context, ?string $role_context = null) : bool {
             $roles = config('lti1p3.LTI_TEST_USER_ROLE_SPEC');
             return $this->hasSomeRolesOf($context, $roles, $role_context);
         }
 
-        public function hasSomeRolesOf(Context $context, array $role_list, ?string $role_context=null) : bool {
+        public function hasSomeRolesOf(LtiContext $context, array $role_list, ?string $role_context=null) : bool {
             $hasRole = false;
             foreach ($role_list as $role_name){
                 if($this->hasRole($context, $role_name, $role_context)){
@@ -66,7 +66,7 @@ use App\Models\UserRole;
             return $hasRole;
         }
 
-        public function hasRole(Context $context, string $role_name , ?string $role_context = null) : bool {
+        public function hasRole(LtiContext $context, string $role_name , ?string $role_context = null) : bool {
             $roles = [];
             if($role_context == static::$SYSTEM_ROLES){
                 $roles = $this->getSystemRoles($context);
@@ -81,7 +81,7 @@ use App\Models\UserRole;
             return $has_role;
         }
 
-        public function getAllRoles(Context $context){
+        public function getAllRoles(LtiContext $context){
             $system_roles = $this->getSystemRoles($context);
             $institution_roles = $this->getInstitutionRoles($context);
             $context_roles = $this->getContextRoles($context);
@@ -91,37 +91,37 @@ use App\Models\UserRole;
             return $roles;
         }
 
-        public function getSystemRoles(Context $context) : array {
+        public function getSystemRoles(LtiContext $context) : array {
             $roles = $this->getLtiRolesFromContext($context);
             $roles = $this->toFriendlyRoles($roles, static::$SYSTEM_ROLES);
             return $roles;
         }
 
-        public function getInstitutionRoles(Context $context) : array {
+        public function getInstitutionRoles(LtiContext $context) : array {
             $roles = $this->getLtiRolesFromContext($context);
             $roles = $this->toFriendlyRoles($roles, static::$INSTITUTIONAL_ROLES);
             return $roles;
         }
 
-        public function getContextRoles(Context $context) : array {
+        public function getContextRoles(LtiContext $context) : array {
             $roles = $this->getLtiRolesFromContext($context);
             $roles = $this->toFriendlyRoles($roles, static::$CONTEX_ROLES);
             return $roles;
         }
 
-        public function getPersonRoles(Context $context) : array {
+        public function getPersonRoles(LtiContext $context) : array {
             $roles = $this->getLtiRolesFromContext($context);
             $roles = $this->toFriendlyRoles($roles, static::$PERSON_ROLES);
             return $roles;
         }
 
-        private function getLtiRolesFromContext(Context $context) : array {
+        private function getLtiRolesFromContext(LtiContext $context) : array {
             $request_key = "{$context->id}{$this->id}";
             $has_previous_request = isset($this->context_roles[$request_key]);
             if($has_previous_request){
                 return $this->context_roles[$request_key];
             }else{
-                $roles = UserRole::select('name')->where('user_id', $this->id)
+                $roles = LtiUserRole::select('name')->where('lti1p3_user_id', $this->id)
                 ->where('lti1p3_context_id', $context->id)->pluck('name')->toArray();
                 $this->context_roles[$request_key] = $roles;
             }

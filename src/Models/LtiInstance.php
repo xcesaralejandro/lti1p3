@@ -2,12 +2,11 @@
 
 namespace xcesaralejandro\lti1p3\Models;
 
-use App\Models\Context;
-use App\Models\Deployment;
+use App\Models\LtiContext;
+use App\Models\LtiDeployment;
 use App\Models\LtiPlatform;
-use App\Models\Platform;
-use App\Models\ResourceLink;
-use App\Models\User;
+use App\Models\LtiResourceLink;
+use App\Models\LtiUser;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,7 +22,7 @@ class LtiInstance extends Authenticatable
     const UPDATED_AT = null;
     protected $with = ['platform', 'context', 'resource_link', 'user'];
 
-    protected $fillable = ['id', 'lti1p3_platform_id', 'lti1p3_deployment_id', 'lti1p3_context_id', 
+    protected $fillable = ['id', 'lti1p3_platform_id', 'lti1p3_deployment_id', 'lti1p3_context_id',
     'lti1p3_resource_link_id', 'lti1p3_user_id', 'initial_message', 'created_at'];
 
     public function platform() : BelongsTo {
