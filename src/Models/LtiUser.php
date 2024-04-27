@@ -17,6 +17,7 @@ class LtiUser extends Authenticatable
     protected $table = 'lti1p3_users';
     protected $fillable = ['lti1p3_platform_id','lti_id', 'name', 'given_name', 'family_name',
     'email', 'picture', 'person_sourceid', 'creation_method'];
+    protected $hidden = ['remember_token'];
 
     public function platform() : BelongsTo {
         return $this->belongsTo(LtiPlatform::class, 'lti1p3_platform_id');

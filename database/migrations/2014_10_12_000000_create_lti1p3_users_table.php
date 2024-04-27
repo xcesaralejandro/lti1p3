@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('picture')->nullable();
             $table->string('person_sourceid')->nullable();
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('lti1p3_platform_id')->references('id')->on('lti1p3_platforms')->onDelete('cascade');
