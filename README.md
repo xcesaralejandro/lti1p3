@@ -1,15 +1,4 @@
-## Introduction
-
-Lti1p3 aims to facilitate LTI 1.3 protocol integration and provide simple integration to develop in laravel, currently the package has been successfully released on Canvas LMS and Moodle LMS.
-
-This package does not yet have support for LTI Adventage, this means that you will not be able to use the name and role service or add qualifications
-
-## Requirements
-
-php >= 8.0
-
-laravel >= 8.0
-
+## [Full documentation 🤓☝️](https://xcesaralejandro.github.io/lti1p3-docs/)
 
 ## Usage
 
@@ -144,5 +133,3 @@ All the urls (except jwks) required on the respective platform are:
 
 https://YOUR_APP_LARAVEL_DOMAIN/lti1p3/connect
 
-
-### See the wiki to know how to use some things
