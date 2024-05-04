@@ -125,7 +125,7 @@ https://YOUR_APP_LARAVEL_DOMAIN/lti1p3/login
 
 #### Tool JWKS endpoint
 
-https://YOUR_APP_LARAVEL_DOMAIN/api/jwks
+https://YOUR_APP_LARAVEL_DOMAIN/api/lti1p3/jwks
 
 #### Tool connection
 
