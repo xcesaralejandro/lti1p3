@@ -62,7 +62,7 @@ class DeepLinkingResponse {
 
     private function getNonce() : string {
         $nonce = LtiNonce::create(['lti1p3_platform_id' => $this->instance->platform->id]);
-        return $nonce->value;
+        return $nonce->id;
     }
 
     private function getDeploymentId() : string {

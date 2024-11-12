@@ -14,21 +14,26 @@ class LtiNonce extends Model
 
     protected $table = 'lti1p3_nonces';
     protected $fillable = ['value', 'lti1p3_platform_id'];
+    protected $keyType = 'string';
+    public $incrementing = false;
 
-    protected static function boot()
-    {
+    protected static function boot(){
         parent::boot();
-        static::creating(function($nonce){
-            $nonce->value = Uuid::uuid4()->toString();
+        static::creating(function($model) {
+            do {
+                $uuid = Uuid::uuid4()->toString();
+            } while (self::where('id', $uuid)->exists());
+            $model->id = $uuid;
         });
     }
+
 
     public function platform() : BelongsTo {
         return $this->belongsTo(LtiPlatform::class, 'lti1p3_platform_id');
     }
 
     public function assertMatchWith(string $nonce) : Void {
-        if($nonce != $this->value){
+        if($nonce != $this->id){
             $message = "The nonce does not match the nonce of the lti content";
             throw new \Exception($message);
         }

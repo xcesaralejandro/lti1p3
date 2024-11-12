@@ -40,13 +40,13 @@ class Launch {
                 'client_id' => $platform->client_id,
                 'login_hint' => $request->login_hint,
                 'lti_message_hint' => $request->lti_message_hint,
-                'nonce' => $nonce->value,
+                'nonce' => $nonce->id,
                 'prompt' => 'none',
                 'redirect_uri' => route('lti1p3.connect'),
                 'response_mode' => 'form_post',
                 'response_type' => 'id_token',
                 'scope' => 'openid',
-                'state' => $nonce->value
+                'state' => $nonce->id
             );
            return $params;
         }

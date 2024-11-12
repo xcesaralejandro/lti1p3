@@ -17,7 +17,7 @@ class Message {
 
     function __construct(string $jwt, string $nonce) {
         $this->raw_jwt = $jwt;
-        $nonce = LtiNonce::where(['value' => $nonce])->firstOrFail();
+        $nonce = LtiNonce::findOrFail($nonce);
         $this->platform = $nonce->platform()->firstOrFail();
         $this->content = $this->getContentFromToken();
         TokenValidator::validOrFail($this->content, $this->platform);
