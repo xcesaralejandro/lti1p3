@@ -7,7 +7,7 @@ use App\Models\LtiInstance;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
-class InjectInstance
+class LtiAuthApi
 {
     public function handle($request, Closure $next){
         $from_params = $request->{"lti1p3-instance-id"} ?? null;
