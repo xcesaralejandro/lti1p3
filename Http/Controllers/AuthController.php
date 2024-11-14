@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace xcesaralejandro\lti1p3\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class AuthController {
 
     public function index(){
-        if(Session::has('lti1p3_session')){
+        if(Session::has('lti1p3_admin_session')){
             return redirect()->route('lti1p3.platforms.index');
         }
         return View('lti1p3::auth.login');
@@ -25,7 +25,7 @@ class AuthController {
         $password = config('lti1p3.LTI1P3_ADMIN_PASSWORD');
         $valid_attempt = $request->username == $user && $request->password == $password;
         if($valid_attempt){
-            Session::put('lti1p3_session', time());
+            Session::put('lti1p3_admin_session', time());
             return redirect()->route('lti1p3.platforms.index');
         } else {
             Session::flush();

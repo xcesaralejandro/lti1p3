@@ -19,7 +19,7 @@ Route::group(['prefix' => 'lti1p3', 'middleware' => ['web']], function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('lti1p3.auth.logout');
 });
 
-Route::group(['prefix' => 'lti1p3/admin', 'middleware' => ['web', 'lti1p3_session']], function () {
+Route::group(['prefix' => 'lti1p3/admin', 'middleware' => ['web', 'LtiAdminSession']], function () {
     Route::resource('/platforms', PlatformsController::class, ['as' => 'lti1p3']);
     Route::resource('platforms/{platform_id}/deployments', DeploymentsController::class, ['as' => 'lti1p3']);
 });
