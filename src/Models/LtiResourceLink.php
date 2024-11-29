@@ -17,7 +17,7 @@ class LtiResourceLink extends Model
     protected $fillable = ['lti1p3_context_id', 'lti_id', 'description', 'title'];
 
     public function context() : BelongsTo {
-        return $this->belongsTo(LtiContext::class, 'context_id');
+        return $this->belongsTo(LtiContext::class, 'lti1p3_context_id');
     }
 
 }
