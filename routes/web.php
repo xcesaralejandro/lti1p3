@@ -24,7 +24,7 @@ Route::group(['prefix' => 'lti1p3/admin', 'middleware' => ['web', 'LtiAdminSessi
     Route::resource('platforms/{platform_id}/deployments', DeploymentsController::class, ['as' => 'lti1p3']);
 });
 
-Route::group(['prefix' => 'example', 'middleware' => 'inject_lti_instance'], function () {
+Route::group(['prefix' => 'example', 'middleware' => 'LtiInstanceResolver'], function () {
     Route::post('/deeplinking', [ExamplesController::class, 'SendDeepLinkingMessage'])->name('deep_linking.example');
     Route::get('/deeplinking/view', [ExamplesController::class, 'launchDeepLinkingUrl'])->name('deep_linking.example.view');
 });
