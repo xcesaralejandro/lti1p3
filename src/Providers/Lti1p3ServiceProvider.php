@@ -18,7 +18,7 @@ class Lti1p3ServiceProvider extends ServiceProvider {
         $this->loadRoutesFrom($this->packageBasePath('routes/api.php'));
 
         $router = $this->app['router'];
-        $router->aliasMiddleware('LtiAuthApi', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\LtiAuthApi::class');
+        $router->aliasMiddleware('LtiInstanceValidator', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\LtiInstanceValidator::class');
         $router->aliasMiddleware('LtiInstanceResolver', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\LtiInstanceResolver::class');
         $router->aliasMiddleware('LtiAdminSession', 'xcesaralejandro\\lti1p3\\Http\\Middleware\\LtiAdminSession::class');
 
