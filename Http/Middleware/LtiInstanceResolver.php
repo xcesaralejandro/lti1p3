@@ -8,7 +8,7 @@ use App\Models\LtiInstance;
 class LtiInstanceResolver
 {
     public function handle($request, Closure $next){
-        $instance_id = $request->input('lti1p3_instance_id')
+        $instance_id = $request->lti1p3_instance_id
                     ?? $request->header('lti1p3_instance_id')
                     ?? $request->route('lti1p3_instance_id');
         if(!empty($instance_id)){
