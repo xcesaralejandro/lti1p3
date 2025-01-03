@@ -46,17 +46,17 @@ class LtiInstance extends Authenticatable
     }
 
     public function isExpired() : bool {
-        $life_time = config('lti1p3.INSTANCE_LIFE_TIME');
+        $lifetime = config('lti1p3.INSTANCE_LIFETIME');
         $timezone = config('app.timezone');
-        if($life_time == null){
+        if($lifetime == null){
             return false;
         }
-        if(!is_numeric($life_time)){
-            $message = "INSTANCE_LIFE_TIME only support null for unlimited time or seconds in numbers.";
+        if(!is_numeric($lifetime)){
+            $message = "INSTANCE_LIFETIME only support null for unlimited time or seconds in numbers.";
             throw new \Exception($message);
         }
         $now = Carbon::now($timezone);
-        $dead_time = $this->created_at->timestamp + $life_time;
+        $dead_time = $this->created_at->timestamp + $lifetime;
         return  $now->timestamp > $dead_time;
     }
 }
