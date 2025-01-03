@@ -4,29 +4,23 @@ namespace xcesaralejandro\lti1p3\Http\Middleware;
 
 use Closure;
 use App\Models\LtiInstance;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 class LtiInstanceValidator
 {
     public function handle($request, Closure $next){
-        $from_params = $request->{"lti1p3-instance-id"} ?? null;
-        $from_headers = $request->header('lti1p3-instance-id');
-        $instance_id = $from_headers ?? $from_params;
-        if(!empty($instance_id)){
-            try{
-                $instance = LtiInstance::findOrFail($instance_id);
-            }catch(ModelNotFoundException $e){
-                abort(401);
-            }
-            if($instance->isExpired()){
-                abort(401);
-            }
-            $request->merge(['lti1p3_instance' => $instance]);
-            Auth::login($request->lti1p3_instance->user, true);
-        }else{
-            abort(401);
+        $instance_id = $request->input('lti1p3_instance_id')
+                    ?? $request->header('lti1p3_instance_id')
+                    ?? $request->route('lti1p3_instance_id');
+        if (empty($instance_id)) {
+            abort(401, 'Unauthorized: Missing instance ID.');
         }
+        $instance = LtiInstance::find($instance_id);
+        if (empty($instance) || $instance->isExpired()) {
+            abort(401, 'Unauthorized: Invalid or expired instance.');
+        }
+        $request->merge(['lti1p3_instance' => $instance]);
+        Auth::login($instance->user, true);
         return $next($request);
     }
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace xcesaralejandro\lti1p3\Http\Controllers;
 
 use xcesaralejandro\lti1p3\Facades\JWT;
@@ -36,12 +36,12 @@ class Lti1p3Controller {
                     $content = $message->getContent();
                     $instance_id = Launch::storeInstance($instance);
                     if($content->hasTargetLinkUriRedirection()){
-                        $extra_params = ['lti1p3-instance-id' => $instance_id];
+                        $extra_params = ['lti1p3_instance_id' => $instance_id];
                         return redirect($content->getTargetLinkUri($extra_params));
                     }
                     return $this->onResourceLinkRequest($instance_id);
                 }else{
-                    $this->onError("Lti message type is not supported."); 
+                    $this->onError("Lti message type is not supported.");
                 }
             } else {
                 return $this->onError();

@@ -8,14 +8,11 @@ use App\Models\LtiInstance;
 class LtiInstanceResolver
 {
     public function handle($request, Closure $next){
-        $from_params = $request->{"lti1p3-instance-id"} ?? null;
-        $from_headers = $request->header('lti1p3-instance-id');
-        $instance_id = $from_headers ?? $from_params;
+        $instance_id = $request->input('lti1p3_instance_id')
+                    ?? $request->header('lti1p3_instance_id')
+                    ?? $request->route('lti1p3_instance_id');
         if(!empty($instance_id)){
-            try{
-                $instance = LtiInstance::findOrFail($instance_id);
-            }catch(\Exception $e){
-            }
+            $instance = LtiInstance::find($instance_id);
             $request->merge(['lti1p3_instance' => $instance]);
         }
         return $next($request);
